@@ -1,0 +1,28 @@
+
+X	java:S125"<This block of commented-out lines of code should be removed.(¨ı‰‚8âÙäêÂ/
+]	java:S125	"<This block of commented-out lines of code should be removed.(ú¡¸Ñşÿÿÿÿ8èÙäêÂ/
+S	java:S106"9Replace this use of System.out or System.err by a logger.(ÅıÖçüÿÿÿÿ
+N	java:S106,"9Replace this use of System.out or System.err by a logger.(‘ªÎ•
+N	java:S1066"9Replace this use of System.out or System.err by a logger.(‘ªÎ•
+N	java:S106@"9Replace this use of System.out or System.err by a logger.(‘ªÎ•
+U	java:S106K"9Replace this use of System.out or System.err by a logger.(‘ªÎ•8ÁíƒôÀ/
+Z	java:S106S"9Replace this use of System.out or System.err by a logger.(Ø–ıüıÿÿÿÿ8áÇ‡ôÀ/
+U	java:S106]"9Replace this use of System.out or System.err by a logger.(‘ªÎ•8¹ä‹ôÀ/
+U	java:S106h"9Replace this use of System.out or System.err by a logger.(‘ªÎ•8´í™ôÀ/
+Z	java:S106p"9Replace this use of System.out or System.err by a logger.(Ø–ıüıÿÿÿÿ8ÂÍİêÂ/
+R
+java:S1144%"0Remove this unused private "primeiroBug" method.(úİÔèÿÿÿÿÿ8˜ÚäêÂ/
+M
+java:S11449"0Remove this unused private "terceiroBug" method.(¥›ñ8™ÚäêÂ/
+P
+java:S1144C".Remove this unused private "quartoBug" method.(¤îäøÿÿÿÿ8›ÚäêÂ/
+K
+java:S1144V".Remove this unused private "quintoBug" method.(ô¬¾°8œÚäêÂ/
+O
+java:S1144`"-Remove this unused private "sextoBug" method.(ÒËÓòûÿÿÿÿ8ÚäêÂ/
+o
+java:S1192,"RDefine a constant instead of duplicating this literal "Valor total: %.2f" 8 times.(‘ªÎ•8ÅÍİêÂ/
+g
+java:S1192"JDefine a constant instead of duplicating this literal "sanduiche" 6 times.(‚ËÑĞ8ÆÍİêÂ/
+0
+java:S1220""Move this file to a named package.
