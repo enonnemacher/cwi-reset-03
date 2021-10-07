@@ -5,11 +5,15 @@ import java.util.Random;
  */
 public class DataProjeto {
 
+    // verifica se a cozinha está aberta ou não
+    public static boolean cozinha;
+
     private static boolean diaUtil;
     private static int hora;
     private static int minuto;
 
     public static DataProjeto criarDataComCozinhaFuncionando() {
+        cozinha = true;
         Random random = new Random();
         int hora = random.nextInt(10) + 6;
         int minuto = hora == 16 ? random.nextInt(40) : random.nextInt(60);
@@ -18,6 +22,7 @@ public class DataProjeto {
     }
 
     public static DataProjeto criarDataComCozinhaEncerradaMasComDiaUtil() {
+        cozinha = false;
         Random random = new Random();
         int hora = random.nextInt(6);
         int minuto = random.nextInt(60);
@@ -26,6 +31,7 @@ public class DataProjeto {
     }
 
     public static DataProjeto criarDataComCozinhaEncerradaSemDiaUtil() {
+        cozinha = false;
         Random random = new Random();
         int hora = random.nextInt(24);
         int minuto = random.nextInt(60);
@@ -39,10 +45,23 @@ public class DataProjeto {
         this.minuto = minuto;
     }
 
+    public DataProjeto(boolean cozinha){
+        cozinha = true;
+    }
+
     public static boolean cozinhaEmFuncionamento() {
+        cozinha = true;
         boolean isHorarioFuncionamento = hora > 6 && hora <= 16;
         boolean isMinutoFuncionamento = hora == 16 ? minuto <= 40 : minuto < 60;
 
         return diaUtil && isHorarioFuncionamento && isMinutoFuncionamento;
     }
+
+    public static boolean getCozinha() {
+        return cozinha;
+    }
+
+    /*public static void setCozinha(boolean cozinha) {
+        DataProjeto.cozinha = cozinha;
+    }*/
 }
