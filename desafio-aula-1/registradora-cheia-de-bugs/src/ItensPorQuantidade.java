@@ -94,8 +94,6 @@ public class ItensPorQuantidade {
         if ("leite".equals(produto)) {
             return getLeite();
         }
-        return sanduiche;
+        return 0;
     }
-
-
 }

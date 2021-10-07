@@ -45,7 +45,7 @@ public class DataProjeto {
         this.minuto = minuto;
     }
 
-    public DataProjeto(boolean cozinha){
+    public DataProjeto(boolean cozinha) {
         cozinha = true;
     }
 
@@ -60,8 +60,4 @@ public class DataProjeto {
     public static boolean getCozinha() {
         return cozinha;
     }
-
-    /*public static void setCozinha(boolean cozinha) {
-        DataProjeto.cozinha = cozinha;
-    }*/
 }

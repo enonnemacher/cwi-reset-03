@@ -3,9 +3,11 @@
  * modificado quantidade de fatias da torta de 1 para 16 por torta
  * corrigido cálculo do pao e da torta na classe RelacaoPesoPreso, e também retirado acento do cafe
  * classe QuantidadeMinimaItem - return de cafe/leite estava invertido, e alterado sanduiche para <= 1
- * Classe itensPorQuantidade: adicionado construtor padrão, gets e sets, métodos estoque e verificaEstoque
- * Criada flag cozinha, para saber se a cozinha está aberta ou não, para assim poder ou não repor o item que o cliente deseja
- *
+ * Classe itensPorQuantidade: adicionado construtor padrão, gets e sets(recebem o valor atual mais a produção), métodos estoque e verificaEstoque
+ * Método estoque: efetua a baixa do estoque conforme a venda
+ * Método verificaEstoque: retorna a quantidade em estoque do item
+ * Criada flag cozinha na classe DataProjeto, para saber se a cozinha está aberta ou não, e assim poder ou não repor o item que o cliente deseja
+ * adicionado condição de verificação if/else nos "Bugs" para verificar o status da cozinha
  * */
 
 public class Registradora {
@@ -33,7 +35,6 @@ public class Registradora {
                     System.out.println("Cozinha fechada!");
                 } else if (DataProjeto.getCozinha() == true) {
                     ReposicaoCozinha.reporItem(item);
-                    //System.out.println("Cozinha aberta");
                 }
             }
 
@@ -53,7 +54,7 @@ public class Registradora {
         int quantidade = 4;
 
         if (ItensPorQuantidade.verificaEstoque(item) <= 0 && DataProjeto.getCozinha() == false) {
-            System.out.println("Reposição indisponível de " + item + ", quantidade restante em estoque é de " + ItensPorQuantidade.verificaEstoque(item));
+            System.out.println("Reposição indisponível de " + item + ", quantidade restante em estoque é 0");
         } else {
             double precoTotal = registrarItem(item, quantidade);
             System.out.println(String.format("Valor total: %.2f", precoTotal));
@@ -66,7 +67,7 @@ public class Registradora {
         int quantidade = 10;
 
         if (ItensPorQuantidade.verificaEstoque(item) <= 0 && DataProjeto.getCozinha() == false) {
-            System.out.println("Reposição indisponível de " + item + ", quantidade restante em estoque é de " + ItensPorQuantidade.verificaEstoque(item));
+            System.out.println("Reposição indisponível de " + item + ", quantidade restante em estoque é 0");
         } else {
             double precoTotal = registrarItem(item, quantidade);
             System.out.println(String.format("Valor total: %.2f", precoTotal));
@@ -79,7 +80,7 @@ public class Registradora {
         int quantidade = 40;
 
         if (ItensPorQuantidade.verificaEstoque(item) <= 0 && DataProjeto.getCozinha() == false) {
-            System.out.println("Reposição indisponível de " + item + ", quantidade restante em estoque é de " + ItensPorQuantidade.verificaEstoque(item));
+            System.out.println("Reposição indisponível de " + item + ", quantidade restante em estoque é 0");
         } else {
             double precoTotal = registrarItem(item, quantidade);
             System.out.println(String.format("Valor total: %.2f", precoTotal));
@@ -93,7 +94,7 @@ public class Registradora {
         int quantidade = 20;
 
         if (ItensPorQuantidade.verificaEstoque(item) <= 0 && DataProjeto.getCozinha() == false) {
-            System.out.println("Reposição indisponível de " + item + ", quantidade restante em estoque é de " + ItensPorQuantidade.verificaEstoque(item));
+            System.out.println("Reposição indisponível de " + item + ", quantidade restante em estoque é 0");
         } else {
             double precoTotal = registrarItem(item, quantidade);
             System.out.println(String.format("Valor total: %.2f", precoTotal));
@@ -104,7 +105,7 @@ public class Registradora {
         int quantidade2 = 5;
 
         if (ItensPorQuantidade.verificaEstoque(item2) <= 0 && DataProjeto.getCozinha() == false) {
-            System.out.println("Reposição indisponível de " + item2 + ", quantidade restante em estoque é de " + ItensPorQuantidade.verificaEstoque(item2));
+            System.out.println("Reposição indisponível de " + item2 + ", quantidade restante em estoque é 0");
         } else {
             double precoTotal2 = registrarItem(item2, quantidade2);
             System.out.println(String.format("Valor total: %.2f", precoTotal2));
@@ -117,7 +118,7 @@ public class Registradora {
         int quantidade = 10;
 
         if (ItensPorQuantidade.verificaEstoque(item) <= 0 && DataProjeto.getCozinha() == false) {
-            System.out.println("Reposição indisponível de " + item + ", quantidade restante em estoque é de " + ItensPorQuantidade.verificaEstoque(item));
+            System.out.println("Reposição indisponível de " + item + ", quantidade restante em estoque é 0");
         } else {
             double precoTotal = registrarItem(item, quantidade);
             System.out.println(String.format("Valor total: %.2f", precoTotal));
@@ -132,7 +133,7 @@ public class Registradora {
         int quantidade = 20;
 
         if (ItensPorQuantidade.verificaEstoque(item) <= 0 && DataProjeto.getCozinha() == false) {
-            System.out.println("Reposição indisponível de " + item + ", quantidade restante em estoque é de " + ItensPorQuantidade.verificaEstoque(item));
+            System.out.println("Reposição indisponível de " + item + ", quantidade restante em estoque é 0");
         } else {
             double precoTotal = registrarItem(item, quantidade);
             System.out.println(String.format("Valor total: %.2f", precoTotal));
