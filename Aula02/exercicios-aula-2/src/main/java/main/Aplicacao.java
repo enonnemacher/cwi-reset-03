@@ -3,11 +3,13 @@ package main;
 public class Aplicacao {
     public static void main(String[] args) {
 
-        Filme filme1 = new Filme("007", "Filme de ação", 130, 2021, 5, "Fulano", 50, 7);
-        Filme filme2 = new Filme("Hitman", "Filme de ação", 120, 2015, 5, "Ciclano", 60, 3);
+        Diretor diretor = new Diretor("Tarantino", 60, 30);
 
-        System.out.println(filme1.toString());
+        Filme django = new Filme("Django", "Filme ação", 120, 2016, 5, diretor);
+        Filme pulpFiction = new Filme("Pulp fiction", "Filme ação", 120, 1997, 5, diretor);
+
+        django.reproduzir();
         System.out.println();
-        System.out.println(filme2.toString());
+        pulpFiction.reproduzir();
     }
 }

@@ -7,30 +7,22 @@ public class Filme {
     private double duracao;
     private int anoLancamento;
     private int avaliacao;
+    private Diretor diretor;
 
-    private String nomeDiretor;
-    private int idadeDiretor;
-    private int quantidadeFilmes;
-
-    public Filme(String nome, String descricao, double duracao, int anoLancamento, int avaliacao, String nomeDiretor, int idadeDiretor, int quantidadeFilmes) {
+    public Filme(String nome, String descricao, double duracao, int anoLancamento, int avaliacao, Diretor diretor) {
         this.nome = nome;
         this.descricao = descricao;
         this.duracao = duracao;
         this.anoLancamento = anoLancamento;
         this.avaliacao = avaliacao;
-        this.nomeDiretor = nomeDiretor;
-        this.idadeDiretor = idadeDiretor;
-        this.quantidadeFilmes = quantidadeFilmes;
+        this.diretor = diretor;
     }
 
-    @Override
-    public String toString() {
-        return "Filme{" +
-                "nome = '" + nome + '\'' +
-                ", descricao = '" + descricao + '\'' +
-                ", duracao = " + duracao +
-                " minutos, nomeDiretor = '" + nomeDiretor + '\'' +
-                '}';
+    public void reproduzir(){
+        System.out.println("Nome: " + this.nome);
+        System.out.println("Descrição: " + this.descricao);
+        System.out.println("Duração: " + this.duracao);
+        System.out.println("Nome diretor: " + diretor.getNome());
     }
 }
 
