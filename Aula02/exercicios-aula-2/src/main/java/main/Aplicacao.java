@@ -3,8 +3,8 @@ package main;
 public class Aplicacao {
     public static void main(String[] args) {
 
-        Diretor quentinTarantino = new Diretor("Quentin Tarantino", 60, 30, Genero.MASCULINO);
-        Ator danielCraig = new Ator("Daniel Craig", 53, 2, Genero.MASCULINO);
+        Diretor quentinTarantino = new Diretor("Quentin Tarantino", 60, Genero.MASCULINO, 30);
+        Ator danielCraig = new Ator("Daniel Craig", 53, Genero.MASCULINO, 2);
 
         Filme django = new Filme("Django", "Filme de ação", 120, 2016, 5, quentinTarantino);
         Filme pulpFiction = new Filme("Pulp fiction", "Filme de ação", 130, 1997, 5, quentinTarantino);
