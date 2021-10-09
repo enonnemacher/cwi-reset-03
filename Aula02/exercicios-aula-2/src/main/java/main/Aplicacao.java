@@ -6,8 +6,8 @@ public class Aplicacao {
         Diretor quentinTarantino = new Diretor("Quentin Tarantino", 60, 30, Genero.MASCULINO);
         Ator danielCraig = new Ator("Daniel Craig", 53, 2, Genero.MASCULINO);
 
-        Filme django = new Filme("Django", "Filme ação", 120, 2016, 5, quentinTarantino);
-        Filme pulpFiction = new Filme("Pulp fiction", "Filme ação", 130, 1997, 5, quentinTarantino);
+        Filme django = new Filme("Django", "Filme de ação", 120, 2016, 5, quentinTarantino);
+        Filme pulpFiction = new Filme("Pulp fiction", "Filme de ação", 130, 1997, 5, quentinTarantino);
 
         django.reproduzir();
         System.out.println();
