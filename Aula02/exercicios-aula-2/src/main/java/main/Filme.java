@@ -18,6 +18,12 @@ public class Filme {
         this.pessoa = pessoa;
     }
 
+    public void validaAvaliacao() throws AvaliacaoForaDoPadraoException{
+        if(avaliacao < 1 || avaliacao > 5){
+            throw new AvaliacaoForaDoPadraoException();
+        }
+    }
+
     public void reproduzir() {
         System.out.println("Nome: " + this.nome);
         System.out.println("Descrição: " + this.descricao);
