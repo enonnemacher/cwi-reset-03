@@ -1,21 +1,17 @@
 package main;
 
-public class Diretor {
+public class Ator {
 
     private String nome;
     private int idade;
-    private int quantidadeFilmes;
+    private int numeroOscar;
     private Genero genero;
 
-    public Diretor(String nome, int idade, int quantidadeFilmes, Genero genero) {
+    public Ator(String nome, int idade, int numeroOscar, Genero genero) {
         this.nome = nome;
         this.idade = idade;
-        this.quantidadeFilmes = quantidadeFilmes;
+        this.numeroOscar = numeroOscar;
         this.genero = genero;
-    }
-
-    public String getNome() {
-        return nome;
     }
 
     public void retornaDados() {
