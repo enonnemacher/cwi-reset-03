@@ -1,5 +1,8 @@
 package br.com.cwi.reset.edersonrafaelnonnemacher;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AtorService {
 
     private FakeDatabase fakeDatabase;
@@ -9,6 +12,5 @@ public class AtorService {
     }
 
     public void criarAtor(AtorRequest atorRequest) {
-
     }
 }
