@@ -1,5 +1,7 @@
 package br.com.cwi.reset.edersonrafaelnonnemacher;
 
+// A classe Ator é um molde para os atores que vão ficar armazenados no seu programa.
+
 import java.time.LocalDate;
 
 public class Ator {
