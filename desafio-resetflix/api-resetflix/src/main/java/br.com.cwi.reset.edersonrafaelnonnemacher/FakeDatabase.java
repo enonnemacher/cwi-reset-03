@@ -23,4 +23,12 @@ public class FakeDatabase {
     public List<Diretor> recuperaDiretores() {
         return diretores;
     }
+
+    @Override
+    public String toString() {
+        return "FakeDatabase{" +
+                "atores=" + atores +
+                ", diretores=" + diretores +
+                '}';
+    }
 }

@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -62,25 +63,65 @@ public class AtorService {
     }
 
     // 1.2 - listar atores em atividade - filtrar por nome
+    public List listarAtoresEmAtividade(String filtroNome) throws ListaAtoresVazioException, AtorNaoEncontradoComFiltro {
 
-    // 1.3 - Consultar ator id - ajustar - Verificar ERRO
-    public List consultarAtores(Integer id) throws CampoObrigatorioException, idAtorException {
+        List<Ator> buscaAtores = new ArrayList<>();
+        List<Ator> listaAtores = fakeDatabase.recuperaAtores();
+
+        if (listaAtores.isEmpty()) {
+            throw new ListaAtoresVazioException();
+        } else {
+            for (Ator ator : listaAtores) {
+                if (ator.getStatusCarreira().equals(StatusCarreira.EM_ATIVIDADE)) {
+                    if (ator.getNome().contains(filtroNome)) {
+                        buscaAtores.add(ator);
+                    }
+                }
+                if (buscaAtores.isEmpty()) {
+                    throw new AtorNaoEncontradoComFiltro(filtroNome);
+                }
+            }
+        }
+        return buscaAtores;
+    }
+
+    // 1.2 - listar atores em atividade
+    public List listarAtoresEmAtividade() throws ListaAtoresVazioException {
+
+        List<Ator> buscaAtores = new ArrayList<>();
+        List<Ator> listaAtores = fakeDatabase.recuperaAtores();
+
+        if (listaAtores.isEmpty()) {
+            throw new ListaAtoresVazioException();
+        } else {
+            for (Ator ator : listaAtores) {
+                if (ator.getStatusCarreira().equals(StatusCarreira.EM_ATIVIDADE)) {
+                    buscaAtores.add(ator);
+                }
+            }
+        }
+        return buscaAtores;
+    }
+
+
+    // 1.3 - Consultar ator id
+    public List consultarAtor(Integer id) throws CampoObrigatorioException, idAtorException {
 
         if (id == null) {
             throw new CampoObrigatorioException("id.");
         }
-
-        List<Ator> listaAtores = fakeDatabase.recuperaAtores();
         Ator buscaAtor = null;
 
-        for (Ator ator : listaAtores) {
-            if (ator.getId().equals(id)) {
-                buscaAtor = ator;
+        List<Ator> listaAtores = fakeDatabase.recuperaAtores();
 
+        for (Ator ator : listaAtores) {
+            if (ator.getId() == id) {
+                buscaAtor = ator;
             } else {
                 throw new idAtorException(id);
             }
         }
+        return Arrays.asList(buscaAtor);
     }
 
     // 1.4 - listar todos os atores
