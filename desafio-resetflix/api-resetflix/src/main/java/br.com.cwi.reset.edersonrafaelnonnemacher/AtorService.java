@@ -36,8 +36,11 @@ public class AtorService {
             throw new CampoObrigatorioException("ano do início de atividade.");
         }
 
-        String nomeAtor[] = atorRequest.getNome().split("\\S+");
+        /*String nomeAtor[] = atorRequest.getNome().split("\\S+");
         if (nomeAtor.length < 2) {
+            throw new atorSemSobrenomeException(atorRequest.getNome());
+        }*/
+        if (atorRequest.getNome().split("").length < 2) {
             throw new atorSemSobrenomeException(atorRequest.getNome());
         }
 
