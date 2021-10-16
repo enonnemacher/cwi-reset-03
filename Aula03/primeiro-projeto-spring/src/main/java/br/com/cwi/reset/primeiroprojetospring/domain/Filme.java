@@ -51,16 +51,4 @@ public class Filme {
     public Diretor getDiretor() {
         return diretor;
     }
-
-    @Override
-    public String toString() {
-        return "Filme{" +
-                "nome='" + nome + '\'' +
-                ", descricao='" + descricao + '\'' +
-                ", duracao=" + duracao +
-                ", anoLancamento=" + anoLancamento +
-                ", avaliacao=" + avaliacao +
-                ", diretor=" + diretor +
-                '}';
-    }
 }

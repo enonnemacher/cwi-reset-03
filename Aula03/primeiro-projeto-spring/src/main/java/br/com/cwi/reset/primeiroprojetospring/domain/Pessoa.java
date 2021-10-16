@@ -28,4 +28,12 @@ public abstract class Pessoa {
     private Integer calcularIdade() {
         return Period.between(LocalDate.now(), dataNascimento).getYears();
     }
+
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public Genero getGenero() {
+        return genero;
+    }
 }

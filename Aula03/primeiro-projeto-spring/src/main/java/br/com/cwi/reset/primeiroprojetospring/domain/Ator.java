@@ -10,4 +10,8 @@ public class Ator extends Pessoa {
         super(nome, nascimento, genero);
         this.numeroOscars = numeroOscars;
     }
+
+    public Integer getNumeroOscars() {
+        return numeroOscars;
+    }
 }
