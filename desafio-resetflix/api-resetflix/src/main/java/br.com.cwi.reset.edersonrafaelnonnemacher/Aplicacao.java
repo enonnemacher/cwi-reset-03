@@ -1,12 +1,10 @@
 package br.com.cwi.reset.edersonrafaelnonnemacher;
 
+import br.com.cwi.reset.edersonrafaelnonnemacher.exception.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.Month;
-import java.util.List;
 
 @SpringBootApplication
 public class Aplicacao {
