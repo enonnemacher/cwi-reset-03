@@ -1,27 +1,18 @@
 package br.com.cwi.reset.edersonrafaelnonnemacher.service;
 
-// AtorService é onde você vai definir as regras de negócio, as validações e limitações na hora de manipular os atores.
-
 import br.com.cwi.reset.edersonrafaelnonnemacher.FakeDatabase;
-import br.com.cwi.reset.edersonrafaelnonnemacher.exception.AtorNaoEncontradoComFiltroException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.exception.CampoObrigatorioException;
-import br.com.cwi.reset.edersonrafaelnonnemacher.exception.ListaAtoresVazioException;
-import br.com.cwi.reset.edersonrafaelnonnemacher.exception.MesmoNomeException;
-import br.com.cwi.reset.edersonrafaelnonnemacher.exception.anoAtividadeMaiorNascimentoException;
-import br.com.cwi.reset.edersonrafaelnonnemacher.exception.atorSemSobrenomeException;
-import br.com.cwi.reset.edersonrafaelnonnemacher.exception.dataNascimentoMaiorException;
-import br.com.cwi.reset.edersonrafaelnonnemacher.exception.idAtorException;
+import br.com.cwi.reset.edersonrafaelnonnemacher.exception.ConsultaIdInvalidoException;
+import br.com.cwi.reset.edersonrafaelnonnemacher.exception.FiltroNomeNaoEncontradoException;
+import br.com.cwi.reset.edersonrafaelnonnemacher.exception.ListaVaziaException;
+import br.com.cwi.reset.edersonrafaelnonnemacher.exception.TipoDominioException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.model.Ator;
 import br.com.cwi.reset.edersonrafaelnonnemacher.model.StatusCarreira;
 import br.com.cwi.reset.edersonrafaelnonnemacher.request.AtorRequest;
+import br.com.cwi.reset.edersonrafaelnonnemacher.validator.ValidaAtor;
+import br.com.cwi.reset.edersonrafaelnonnemacher.response.AtorEmAtividade;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class AtorService {
 
@@ -34,117 +25,70 @@ public class AtorService {
     }
 
     // 1.1 Cadastrar ator
-    public void criarAtor(AtorRequest atorRequest) throws CampoObrigatorioException, MesmoNomeException, atorSemSobrenomeException, ParseException, dataNascimentoMaiorException, anoAtividadeMaiorNascimentoException {
+    public void criarAtor(AtorRequest atorRequest) throws Exception {
 
-        if (atorRequest.getNome().isEmpty()) {
-            throw new CampoObrigatorioException("nome.");
-        }
-        if (atorRequest.getDataNascimento() == null) {
-            throw new CampoObrigatorioException("data de nascimento.");
-        }
-        if (atorRequest.getStatusCarreira() == null) {
-            throw new CampoObrigatorioException("status da carreira.");
-        }
-        if (atorRequest.getAnoInicioAtividade() == null) {
-            throw new CampoObrigatorioException("ano do início de atividade.");
-        }
-
-        /*String nomeAtor[] = atorRequest.getNome().split("\\S+");
-        if (nomeAtor.length < 2) {
-            throw new atorSemSobrenomeException(atorRequest.getNome());
-        }*/
-        if (atorRequest.getNome().split("").length < 2) {
-            throw new atorSemSobrenomeException(atorRequest.getNome());
-        }
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date dataNascimento = dateFormat.parse(atorRequest.getDataNascimento().toString());
-        Date dataHoje = dateFormat.parse(LocalDate.now().toString());
-        if (dataNascimento.after(dataHoje)) {
-            throw new dataNascimentoMaiorException();
-        }
-
-        if (atorRequest.getDataNascimento().getYear() - atorRequest.getAnoInicioAtividade() >= 0) {
-            throw new anoAtividadeMaiorNascimentoException();
-        }
-
-        for (Ator listaDeAtores : fakeDatabase.recuperaAtores()) {
-            if (listaDeAtores.getNome().equals(atorRequest.getNome())) {
-                throw new MesmoNomeException(atorRequest.getNome());
-            }
-        }
+        new ValidaAtor().accept(atorRequest.getNome(), atorRequest.getDataNascimento(), atorRequest.getAnoInicioAtividade(), atorRequest.getStatusCarreira(), TipoDominioException.ATOR);
 
         this.fakeDatabase.persisteAtor(new Ator(id++, atorRequest.getNome(), atorRequest.getDataNascimento(),
                 atorRequest.getStatusCarreira(), atorRequest.getAnoInicioAtividade()));
     }
 
     // 1.2 - listar atores em atividade - filtrar por nome
-    public List listarAtoresEmAtividade(String filtroNome) throws ListaAtoresVazioException, AtorNaoEncontradoComFiltroException {
+    public List<AtorEmAtividade> listarAtoresEmAtividade(String filtroNome) throws Exception {
 
-        List<Ator> buscaAtores = new ArrayList<>();
+        List<AtorEmAtividade> buscaAtores = new ArrayList<>();
         List<Ator> listaAtores = fakeDatabase.recuperaAtores();
 
         if (listaAtores.isEmpty()) {
-            throw new ListaAtoresVazioException();
+            throw new ListaVaziaException(TipoDominioException.ATOR.getSingular(), TipoDominioException.ATOR.getPlural());
+        }
+        if (filtroNome != null) {
+            for (Ator ator : listaAtores) {
+                final boolean containsFilter = ator.getNome().toLowerCase(Locale.ROOT).contains(filtroNome.toLowerCase(Locale.ROOT));
+                final boolean emAtividade = StatusCarreira.EM_ATIVIDADE.equals(ator.getStatusCarreira());
+                if (containsFilter && emAtividade) {
+                    buscaAtores.add(new AtorEmAtividade(ator.getId(), ator.getNome(), ator.getDataNascimento()));
+                }
+            }
         } else {
             for (Ator ator : listaAtores) {
-                if (ator.getStatusCarreira().equals(StatusCarreira.EM_ATIVIDADE)) {
-                    if (ator.getNome().contains(filtroNome)) {
-                        buscaAtores.add(ator);
-                    }
-                }
-                if (buscaAtores.isEmpty()) {
-                    throw new AtorNaoEncontradoComFiltroException(filtroNome);
+                final boolean emAtividade = StatusCarreira.EM_ATIVIDADE.equals(ator.getStatusCarreira());
+                if (emAtividade) {
+                    buscaAtores.add(new AtorEmAtividade(ator.getId(), ator.getNome(), ator.getDataNascimento()));
                 }
             }
         }
-        return buscaAtores;
-    }
 
-    // 1.2 - listar atores em atividade
-    public List listarAtoresEmAtividade() throws ListaAtoresVazioException {
-
-        List<Ator> buscaAtores = new ArrayList<>();
-        List<Ator> listaAtores = fakeDatabase.recuperaAtores();
-
-        if (listaAtores.isEmpty()) {
-            throw new ListaAtoresVazioException();
-        } else {
-            for (Ator ator : listaAtores) {
-                if (ator.getStatusCarreira().equals(StatusCarreira.EM_ATIVIDADE)) {
-                    buscaAtores.add(ator);
-                }
-            }
+        if (buscaAtores.isEmpty()) {
+            throw new FiltroNomeNaoEncontradoException("Ator", filtroNome);
         }
+
         return buscaAtores;
     }
-
 
     // 1.3 - Consultar ator id
-    public List consultarAtor(Integer id) throws CampoObrigatorioException, idAtorException {
+    public Ator consultarAtor(Integer id) throws Exception {
 
         if (id == null) {
             throw new CampoObrigatorioException("id.");
         }
-        Ator buscaAtor = null;
 
         List<Ator> listaAtores = fakeDatabase.recuperaAtores();
 
         for (Ator ator : listaAtores) {
             if (ator.getId() == id) {
-                buscaAtor = ator;
-            } else {
-                throw new idAtorException(id);
+                return ator;
             }
         }
-        return Arrays.asList(buscaAtor);
+
+        throw new ConsultaIdInvalidoException(TipoDominioException.ATOR.getSingular(), id);
     }
 
     // 1.4 - listar todos os atores
-    public List consultarAtores() throws ListaAtoresVazioException {
+    public List consultarAtores() throws Exception {
         List<Ator> listaAtores = fakeDatabase.recuperaAtores();
         if (listaAtores.isEmpty()) {
-            throw new ListaAtoresVazioException();
+            throw new ListaVaziaException(TipoDominioException.ATOR.getSingular(), TipoDominioException.ATOR.getPlural());
         } else {
             return listaAtores;
         }

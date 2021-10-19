@@ -3,7 +3,8 @@ package br.com.cwi.reset.edersonrafaelnonnemacher.exception;
 public enum TipoDominioException {
 
     ATOR("ator","atores"),
-    DIRETOR("diretor","diretores");
+    DIRETOR("diretor","diretores"),
+    ESTUDIO("estudio", "estudios");
 
     private final String singular;
     private final String plural;

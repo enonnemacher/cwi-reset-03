@@ -24,17 +24,39 @@ public class Ator {
         return id;
     }
 
-    public String getNome() { return nome; }
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
     public LocalDate getDataNascimento() {
         return dataNascimento;
+    }
+
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 
     public StatusCarreira getStatusCarreira() {
         return statusCarreira;
     }
 
+    public void setStatusCarreira(StatusCarreira statusCarreira) {
+        this.statusCarreira = statusCarreira;
+    }
+
     public Integer getAnoInicioAtividade() {
         return anoInicioAtividade;
+    }
+
+    public void setAnoInicioAtividade(Integer anoInicioAtividade) {
+        this.anoInicioAtividade = anoInicioAtividade;
     }
 }
