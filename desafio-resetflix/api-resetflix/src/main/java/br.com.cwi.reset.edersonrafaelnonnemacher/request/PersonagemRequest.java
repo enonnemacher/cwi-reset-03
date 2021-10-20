@@ -1,35 +1,27 @@
-package br.com.cwi.reset.edersonrafaelnonnemacher.model;
+package br.com.cwi.reset.edersonrafaelnonnemacher.request;
 
-public class PersonagemAtor {
+import br.com.cwi.reset.edersonrafaelnonnemacher.model.TipoAtuacao;
 
-    private Integer id;
-    private Ator ator;
+public class PersonagemRequest {
+
+    private Integer idAtor;
     private String nomePersonagem;
     private String descricaoPersonagem;
     private TipoAtuacao tipoAtuacao;
 
-    public PersonagemAtor(Integer id, Ator ator, String nomePersonagem, String descricaoPersonagem, TipoAtuacao tipoAtuacao) {
-        this.id = id;
-        this.ator = ator;
+    public PersonagemRequest(Integer idAtor, String nomePersonagem, String descricaoPersonagem, TipoAtuacao tipoAtuacao) {
+        this.idAtor = idAtor;
         this.nomePersonagem = nomePersonagem;
         this.descricaoPersonagem = descricaoPersonagem;
         this.tipoAtuacao = tipoAtuacao;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getIdAtor() {
+        return idAtor;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Ator getAtor() {
-        return ator;
-    }
-
-    public void setAtor(Ator ator) {
-        this.ator = ator;
+    public void setIdAtor(Integer idAtor) {
+        this.idAtor = idAtor;
     }
 
     public String getNomePersonagem() {
