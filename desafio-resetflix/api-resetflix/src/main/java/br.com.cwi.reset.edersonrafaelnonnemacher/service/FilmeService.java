@@ -27,12 +27,25 @@ public class FilmeService {
     // 1.1 Criar filme
     public void criarFilme(FilmeRequest filmeRequest) throws Exception{
 
-        new ValidaFilme().accept(filmeRequest.getNome(), filmeRequest.getAnoLancamento(), filmeRequest.getCapaFilme(),
-                filmeRequest.getGeneros(), filmeRequest.getIdDiretor(), filmeRequest.getIdEstudio(),
-                filmeRequest.getResumo(), filmeRequest.getPersonagens());
+        new ValidaFilme().accept(filmeRequest.getNome(),
+                filmeRequest.getAnoLancamento(),
+                filmeRequest.getCapaFilme(),
+                filmeRequest.getGeneros(),
+                filmeRequest.getIdDiretor(),
+                filmeRequest.getIdEstudio(),
+                filmeRequest.getResumo(),
+                filmeRequest.getPersonagens());
 
-        //this.fakeDatabase.persisteFilme(new Filme(id++, filmeRequest.getNome(), filmeRequest.getAnoLancamento(), filmeRequest.getCapaFilme(),
-        //        filmeRequest.getGeneros(), diretorService.consultarDiretor(filmeRequest.getIdDiretor()), estudioService.consultarEstudio(filmeRequest.getIdEstudio()), , filmeRequest.getResumo())));
+        List<PersonagemAtor> personagens = personagemService.criarPersonagem(filmeRequest.getPersonagens());
 
+        this.fakeDatabase.persisteFilme(new Filme(id++,
+                filmeRequest.getNome(),
+                filmeRequest.getAnoLancamento(),
+                filmeRequest.getCapaFilme(),
+                filmeRequest.getGeneros(),
+                diretorService.consultarDiretor(filmeRequest.getIdDiretor()),
+                estudioService.consultarEstudio(filmeRequest.getIdEstudio()),
+                personagens,
+                filmeRequest.getResumo()));
     }
 }
