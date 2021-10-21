@@ -23,7 +23,7 @@ public class DiretorService {
         this.fakeDatabase = fakeDatabase;
     }
 
-    // 1.1 Cadastrar diretor
+    // 2.1 Cadastrar diretor
     public void cadastrarDiretor(DiretorRequest diretorRequest) throws Exception {
 
         new ValidaDiretor().accept(diretorRequest.getNome(), diretorRequest.getDataNascimento(), diretorRequest.getAnoInicioAtividade(), TipoDominioException.DIRETOR);
@@ -32,7 +32,7 @@ public class DiretorService {
                 diretorRequest.getDataNascimento(), diretorRequest.getAnoInicioAtividade()));
     }
 
-    // 1.2 - listar diretores - filtrar por nome
+    // 2.2 - listar diretores - filtrar por nome
     public List listarDiretores(String filtroNome) throws Exception {
 
         List<Diretor> buscaDiretores = new ArrayList<>();
@@ -53,7 +53,7 @@ public class DiretorService {
         return buscaDiretores;
     }
 
-    // 1.3 - Consultar diretor id
+    // 2.3 - Consultar diretor id
     public Diretor consultarDiretor(Integer id) throws Exception {
 
         if (id == null) {

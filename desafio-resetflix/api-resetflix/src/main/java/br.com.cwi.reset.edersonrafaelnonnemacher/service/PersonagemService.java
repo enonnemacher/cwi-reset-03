@@ -24,12 +24,6 @@ public class PersonagemService {
     }
 
     // 1.1 - Cadastrar personagem
-//    public void criarPersonagem(PersonagemRequest personagemRequest) throws Exception {
-//
-//        new ValidaPersonagem().accept(personagemRequest.getIdAtor(), personagemRequest.getNomePersonagem(), personagemRequest.getDescricaoPersonagem(), personagemRequest.getTipoAtuacao());
-//
-//        this.fakeDatabase.persistePersonagem(new PersonagemAtor(id++, atorService.consultarAtor(personagemRequest.getIdAtor()), personagemRequest.getNomePersonagem(), personagemRequest.getDescricaoPersonagem(), personagemRequest.getTipoAtuacao()));
-//    }
     public List<PersonagemAtor> criarPersonagem(List<PersonagemRequest> personagemRequest) throws Exception {
 
         List<PersonagemAtor> personagensAtor = new ArrayList<>();

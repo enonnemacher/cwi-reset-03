@@ -1,12 +1,16 @@
 package br.com.cwi.reset.edersonrafaelnonnemacher.service;
 
 import br.com.cwi.reset.edersonrafaelnonnemacher.FakeDatabase;
+import br.com.cwi.reset.edersonrafaelnonnemacher.exception.FilmeNaoEncontradoException;
+import br.com.cwi.reset.edersonrafaelnonnemacher.exception.ListaVaziaException;
+import br.com.cwi.reset.edersonrafaelnonnemacher.exception.TipoDominioException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.model.Filme;
 import br.com.cwi.reset.edersonrafaelnonnemacher.model.PersonagemAtor;
 import br.com.cwi.reset.edersonrafaelnonnemacher.request.FilmeRequest;
 import br.com.cwi.reset.edersonrafaelnonnemacher.request.PersonagemRequest;
 import br.com.cwi.reset.edersonrafaelnonnemacher.validator.ValidaFilme;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FilmeService {
@@ -17,15 +21,15 @@ public class FilmeService {
     private EstudioService estudioService;
     public static Integer id = 1;
 
-    public FilmeService(FakeDatabase fakeDatabase, DiretorService diretorService, PersonagemService personagemService, EstudioService estudioService) {
+    public FilmeService(FakeDatabase fakeDatabase) {
         this.fakeDatabase = fakeDatabase;
         this.diretorService = new DiretorService(FakeDatabase.getInstance());
         this.personagemService = new PersonagemService(FakeDatabase.getInstance());
         this.estudioService = new EstudioService(FakeDatabase.getInstance());
     }
 
-    // 1.1 Criar filme
-    public void criarFilme(FilmeRequest filmeRequest) throws Exception{
+    // 4.1 Criar filme
+    public void criarFilme(FilmeRequest filmeRequest) throws Exception {
 
         new ValidaFilme().accept(filmeRequest.getNome(),
                 filmeRequest.getAnoLancamento(),
@@ -47,5 +51,43 @@ public class FilmeService {
                 estudioService.consultarEstudio(filmeRequest.getIdEstudio()),
                 personagens,
                 filmeRequest.getResumo()));
+    }
+
+    // 4.2 - Consultar filmes
+    public List<Filme> consultarFilmes(String nomeFilme, String nomeDiretor, String nomePersonagem, String nomeAtor) throws Exception {
+
+        List<Filme> listaDosFilmes = fakeDatabase.recuperaFilmes();
+        List<Filme> retornoFiltroFilme = new ArrayList<>();
+
+        if (listaDosFilmes.isEmpty()) {
+            throw new ListaVaziaException(TipoDominioException.FILME.getSingular(), TipoDominioException.FILME.getPlural());
+        }
+
+        if (nomeFilme.isEmpty() && nomeDiretor.isEmpty() && nomePersonagem.isEmpty() && nomeAtor.isEmpty()) {
+            return listaDosFilmes;
+        }
+
+        for (Filme buscaFilme : listaDosFilmes) {
+            if (buscaFilme.getNome().contains(nomeFilme)) {
+                retornoFiltroFilme.add(buscaFilme);
+            }
+            if (buscaFilme.getDiretor().getNome().contains(nomeDiretor)) {
+                retornoFiltroFilme.add(buscaFilme);
+            }
+            if (buscaFilme.getPersonagens().contains(nomePersonagem)) {
+                retornoFiltroFilme.add(buscaFilme);
+            }
+            for (PersonagemAtor ator : buscaFilme.getPersonagens()) {
+                if (buscaFilme.getPersonagens().contains(ator.getAtor().getNome())) {
+                    retornoFiltroFilme.add(buscaFilme);
+                }
+            }
+        }
+
+        if (retornoFiltroFilme.isEmpty()) {
+            throw new FilmeNaoEncontradoException(nomeFilme, nomeDiretor, nomePersonagem, nomeAtor);
+        }
+
+        return retornoFiltroFilme;
     }
 }

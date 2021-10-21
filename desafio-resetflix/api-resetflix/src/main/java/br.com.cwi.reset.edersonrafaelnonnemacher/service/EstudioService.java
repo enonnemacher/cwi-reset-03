@@ -24,7 +24,7 @@ public class EstudioService {
         this.fakeDatabase = fakeDatabase;
     }
 
-    // 1.1 Cadastrar estudio
+    // 3.1 Cadastrar estudio
     public void criarEstudio(EstudioRequest estudioRequest) throws Exception {
 
         new ValidaEstudio().accept(estudioRequest.getNome(), estudioRequest.getDescricao(), estudioRequest.getDataCriacao(), estudioRequest.getStatusAtividade(), TipoDominioException.ESTUDIO);
@@ -33,7 +33,7 @@ public class EstudioService {
                 estudioRequest.getDataCriacao(), estudioRequest.getStatusAtividade()));
     }
 
-    // 1.2 Listar estudio
+    // 3.2 Listar estudio
     public List<Estudio> listarEstudios(String filtroNome) throws Exception {
 
         List<Estudio> buscaEstudios = new ArrayList<>();
@@ -61,7 +61,7 @@ public class EstudioService {
         return buscaEstudios;
     }
 
-    // 1.3 Consultar estudio
+    // 3.3 Consultar estudio
     public Estudio consultarEstudio(Integer id) throws Exception {
 
         if (id == null) {
