@@ -62,5 +62,4 @@ public class PetController {
             pets.remove(pet);
         }
     }
-
 }
