@@ -37,8 +37,8 @@ public class PetController {
     }
 
     @PutMapping
-    public void atualizarPet(@RequestBody Pet pet) throws PetNaoExistenteException {
-        petService.atualizarPet(pet);
+    public Pet atualizarPet(@RequestBody Pet pet) throws PetNaoExistenteException {
+        return petService.atualizarPet(pet);
     }
 
     @DeleteMapping("/{nome}")

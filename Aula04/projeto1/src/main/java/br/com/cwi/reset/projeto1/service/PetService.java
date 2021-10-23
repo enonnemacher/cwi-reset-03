@@ -16,7 +16,7 @@ public class PetService {
     private PetRepositoryImpl repository;
 
     public Pet cadastrarPet(Pet pet) throws PetJaExistenteException {
-        Pet petJaExistente = repository.buscarPetPeloNome(pet.getNome());
+        Pet petJaExistente = repository.buscarPeloNome(pet.getNome());
 
         if (petJaExistente != null) {
             throw new PetJaExistenteException("Pet com o nome " + pet.getNome() + " já existe");
@@ -30,7 +30,7 @@ public class PetService {
     }
 
     public Pet buscarPetPeloNome(String nome) throws PetNaoExistenteException {
-        Pet pet = repository.buscarPetPeloNome(nome);
+        Pet pet = repository.buscarPeloNome(nome);
 
         if (pet == null) {
             throw new PetNaoExistenteException("Pet com o nome " + nome + " não existe");

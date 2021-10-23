@@ -11,7 +11,7 @@ public class PetRepositoryImpl implements PetRepository {
 
     private List<Pet> pets = new ArrayList<>();
 
-    public Pet buscarPetPeloNome(String nome) {
+    public Pet buscarPeloNome(String nome) {
         for (Pet pet : pets) {
             if (pet.getNome().equals(nome)) {
                 return pet;
@@ -30,7 +30,7 @@ public class PetRepositoryImpl implements PetRepository {
     }
 
     public Pet update(Pet pet) {
-        Pet petExistente = buscarPetPeloNome(pet.getNome());
+        Pet petExistente = buscarPeloNome(pet.getNome());
 
         if (petExistente != null) {
             pets.remove(petExistente);

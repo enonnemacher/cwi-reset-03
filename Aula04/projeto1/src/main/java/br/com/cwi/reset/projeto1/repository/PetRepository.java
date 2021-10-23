@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface PetRepository {
 
-    Pet buscarPetPeloNome(String nome);
+    Pet buscarPeloNome(String nome);
 
     Pet save(Pet pet);
 
