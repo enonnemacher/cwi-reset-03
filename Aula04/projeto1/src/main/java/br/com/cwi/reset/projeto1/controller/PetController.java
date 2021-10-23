@@ -4,6 +4,8 @@ import br.com.cwi.reset.projeto1.domain.Pet;
 import br.com.cwi.reset.projeto1.exception.PetJaExistenteException;
 import br.com.cwi.reset.projeto1.exception.PetNaoExistenteException;
 import br.com.cwi.reset.projeto1.service.PetService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +17,8 @@ import java.util.List;
 @RequestMapping("/pet")
 public class PetController {
 
-    private PetService petService = new PetService();
+    @Autowired
+    private PetService petService;
 
     @GetMapping
     public List<Pet> listarTodos() {
@@ -23,46 +26,23 @@ public class PetController {
     }
 
     @GetMapping("/{nome}")
-    public ResponseEntity<Pet> buscarPetPorNome(@PathVariable String nome) {
-        Pet pet = buscarPetPeloNome(nome);
-
-        if (pet == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        return ResponseEntity.ok(pet);
+    public Pet buscarPetPorNome(@PathVariable String nome) throws PetNaoExistenteException {
+        return petService.buscarPetPeloNome(nome);
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Pet cadastrarPet(@RequestBody Pet pet) throws PetJaExistenteException {
-        petService.cadastrarPet(pet);
-        return pet;
+        return petService.cadastrarPet(pet);
     }
 
     @PutMapping
-    public void atualizarPet(@RequestBody Pet pet) throws PetNaoExistenteException, PetJaExistenteException {
-        Pet petCadastrado = buscarPetPeloNome(pet.getNome());
-
-        if (petCadastrado != null) {
-            petService.deletarPet(pet.getNome());
-            petService.cadastrarPet(pet);
-        }
+    public void atualizarPet(@RequestBody Pet pet) throws PetNaoExistenteException {
+        petService.atualizarPet(pet);
     }
 
     @DeleteMapping("/{nome}")
     public void deletarPet(@PathVariable String nome) throws PetNaoExistenteException {
-        Pet pet = buscarPetPeloNome(nome);
-        if (pet != null) {
-            petService.deletarPet(pet.getNome());
-        }
-    }
-
-    private Pet buscarPetPeloNome(String nome) {
-        for (Pet pet : petService.listarTodos()) {
-            if (pet.getNome().equals(nome)) {
-                return pet;
-            }
-        }
-        return null;
+        petService.deletarPet(nome);
     }
 }

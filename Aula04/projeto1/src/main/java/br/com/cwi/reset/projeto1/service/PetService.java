@@ -3,13 +3,17 @@ package br.com.cwi.reset.projeto1.service;
 import br.com.cwi.reset.projeto1.domain.Pet;
 import br.com.cwi.reset.projeto1.exception.PetJaExistenteException;
 import br.com.cwi.reset.projeto1.exception.PetNaoExistenteException;
-import br.com.cwi.reset.projeto1.repository.PetRepository;
+import br.com.cwi.reset.projeto1.repository.PetRepositoryImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class PetService {
 
-    private PetRepository repository = new PetRepository();
+    @Autowired
+    private PetRepositoryImpl repository;
 
     public Pet cadastrarPet(Pet pet) throws PetJaExistenteException {
         Pet petJaExistente = repository.buscarPetPeloNome(pet.getNome());
@@ -25,8 +29,14 @@ public class PetService {
         return repository.listarTodos();
     }
 
-    public Pet buscarPetPeloNome(String nome) {
-        return repository.buscarPetPeloNome(nome);
+    public Pet buscarPetPeloNome(String nome) throws PetNaoExistenteException {
+        Pet pet = repository.buscarPetPeloNome(nome);
+
+        if (pet == null) {
+            throw new PetNaoExistenteException("Pet com o nome " + nome + " não existe");
+        }
+
+        return pet;
     }
 
     public void deletarPet(String nomePet) throws PetNaoExistenteException {
