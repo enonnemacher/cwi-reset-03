@@ -38,7 +38,7 @@ public class PetRepository {
         return null;
     }
 
-    public List<Pet> findAll() {
+    public List<Pet> listarTodos() {
         return pets;
     }
 }

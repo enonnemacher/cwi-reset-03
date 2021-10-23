@@ -21,8 +21,8 @@ public class PetService {
         return pet;
     }
 
-    public List<Pet> getPet() {
-        return repository.findAll();
+    public List<Pet> listarTodos() {
+        return repository.listarTodos();
     }
 
     public Pet buscarPetPeloNome(String nome) {
