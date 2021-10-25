@@ -1,6 +1,5 @@
 package br.com.cwi.reset.edersonrafaelnonnemacher.service;
 
-import br.com.cwi.reset.edersonrafaelnonnemacher.FakeDatabase;
 import br.com.cwi.reset.edersonrafaelnonnemacher.exception.CampoObrigatorioException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.exception.ConsultaIdInvalidoException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.exception.FiltroNomeNaoEncontradoException;
@@ -8,21 +7,26 @@ import br.com.cwi.reset.edersonrafaelnonnemacher.exception.ListaVaziaException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.exception.TipoDominioException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.model.Ator;
 import br.com.cwi.reset.edersonrafaelnonnemacher.model.StatusCarreira;
+import br.com.cwi.reset.edersonrafaelnonnemacher.repository.AtorRepository;
 import br.com.cwi.reset.edersonrafaelnonnemacher.request.AtorRequest;
 import br.com.cwi.reset.edersonrafaelnonnemacher.validator.ValidaAtor;
 import br.com.cwi.reset.edersonrafaelnonnemacher.response.AtorEmAtividade;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+@Service
 public class AtorService {
 
-    private FakeDatabase fakeDatabase;
+    @Autowired
+    private AtorRepository repository;
 
     public static Integer id = 1;
 
-    public AtorService(FakeDatabase fakeDatabase) {
+    /*public AtorService(FakeDatabase fakeDatabase) {
         this.fakeDatabase = fakeDatabase;
-    }
+    }*/
 
     // 1.1 Cadastrar ator
     public void criarAtor(AtorRequest atorRequest) throws Exception {

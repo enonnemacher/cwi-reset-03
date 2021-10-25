@@ -4,7 +4,7 @@ import br.com.cwi.reset.edersonrafaelnonnemacher.model.Ator;
 import br.com.cwi.reset.edersonrafaelnonnemacher.request.AtorRequest;
 import br.com.cwi.reset.edersonrafaelnonnemacher.response.AtorEmAtividade;
 import br.com.cwi.reset.edersonrafaelnonnemacher.service.AtorService;
-import br.com.cwi.reset.edersonrafaelnonnemacher.FakeDatabase;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,11 +14,12 @@ import java.util.List;
 @RequestMapping("/atores")
 public class AtorController {
 
+    @Autowired
     private AtorService atorService;
 
-    public AtorController() {
+    /*public AtorController() {
         this.atorService = new AtorService(FakeDatabase.getInstance());
-    }
+    }*/
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

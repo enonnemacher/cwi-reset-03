@@ -20,7 +20,7 @@ public class PersonagemService {
 
     public PersonagemService(FakeDatabase fakeDatabase) {
         this.fakeDatabase = fakeDatabase;
-        this.atorService = new AtorService(FakeDatabase.getInstance());
+        this.atorService = new AtorService();
     }
 
     // 1.1 - Cadastrar personagem
