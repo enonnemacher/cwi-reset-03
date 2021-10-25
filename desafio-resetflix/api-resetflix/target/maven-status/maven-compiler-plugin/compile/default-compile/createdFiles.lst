@@ -1,0 +1,6 @@
+br\com\cwi\reset\edersonrafaelnonnemacher\controller\FilmeController.class
+br\com\cwi\reset\edersonrafaelnonnemacher\request\FilmeRequest.class
+br\com\cwi\reset\edersonrafaelnonnemacher\service\FilmeService.class
+br\com\cwi\reset\edersonrafaelnonnemacher\exception\FilmeNaoEncontradoException.class
+br\com\cwi\reset\edersonrafaelnonnemacher\exception\CampoRepetidoException.class
+br\com\cwi\reset\edersonrafaelnonnemacher\validator\ValidaFilme.class

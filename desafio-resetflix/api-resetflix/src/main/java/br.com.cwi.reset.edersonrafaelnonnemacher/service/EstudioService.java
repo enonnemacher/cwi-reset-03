@@ -34,7 +34,7 @@ public class EstudioService {
     }
 
     // 3.2 Listar estudio
-    public List<Estudio> listarEstudios(String filtroNome) throws Exception {
+    public List<Estudio> consultarEstudios(String filtroNome) throws Exception {
 
         List<Estudio> buscaEstudios = new ArrayList<>();
         List<Estudio> listaEstudios = fakeDatabase.recuperaEstudios();

@@ -30,7 +30,7 @@ public class DiretorController {
     }
 
     @GetMapping
-    public List<Diretor> listarDiretores(@RequestParam(required = false) String filtroNome) throws Exception {
+    public List<Diretor> listarDiretores(@RequestParam String filtroNome) throws Exception {
         return this.diretorService.listarDiretores(filtroNome);
     }
 
