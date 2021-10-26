@@ -7,8 +7,10 @@ import br.com.cwi.reset.edersonrafaelnonnemacher.exception.ListaVaziaException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.exception.MesmoNomeException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.exception.TipoDominioException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.model.Ator;
+import br.com.cwi.reset.edersonrafaelnonnemacher.model.PersonagemAtor;
 import br.com.cwi.reset.edersonrafaelnonnemacher.model.StatusCarreira;
 import br.com.cwi.reset.edersonrafaelnonnemacher.repository.AtorRepository;
+import br.com.cwi.reset.edersonrafaelnonnemacher.repository.PersonagemRepository;
 import br.com.cwi.reset.edersonrafaelnonnemacher.request.AtorRequest;
 import br.com.cwi.reset.edersonrafaelnonnemacher.response.AtorEmAtividade;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ public class AtorService {
 
     @Autowired
     private AtorRepository atorRepository;
+    private PersonagemRepository personagemRepository;
 
     // 1.1 Cadastrar ator
     public void criarAtor(AtorRequest atorRequest) {
@@ -120,6 +123,7 @@ public class AtorService {
         }
 
         List<Ator> listaAtores = atorRepository.findAll();
+        List<PersonagemAtor> listaPersonagens = personagemRepository.findAll();
 
         for (Ator ator : listaAtores) {
             if (ator.getId().equals(id)) {

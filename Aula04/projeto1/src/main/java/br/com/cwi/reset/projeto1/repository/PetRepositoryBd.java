@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface PetRepository extends CrudRepository<Pet, Integer> {
+public interface PetRepositoryBd extends CrudRepository<Pet, Integer> {
 
     Pet findByNome(String nome);
 

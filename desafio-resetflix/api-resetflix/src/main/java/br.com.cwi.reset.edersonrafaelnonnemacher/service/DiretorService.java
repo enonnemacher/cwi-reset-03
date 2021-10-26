@@ -1,10 +1,6 @@
 package br.com.cwi.reset.edersonrafaelnonnemacher.service;
 
-import br.com.cwi.reset.edersonrafaelnonnemacher.exception.CampoObrigatorioException;
-import br.com.cwi.reset.edersonrafaelnonnemacher.exception.ConsultaIdInvalidoException;
-import br.com.cwi.reset.edersonrafaelnonnemacher.exception.FiltroNomeNaoEncontradoException;
-import br.com.cwi.reset.edersonrafaelnonnemacher.exception.ListaVaziaException;
-import br.com.cwi.reset.edersonrafaelnonnemacher.exception.TipoDominioException;
+import br.com.cwi.reset.edersonrafaelnonnemacher.exception.*;
 import br.com.cwi.reset.edersonrafaelnonnemacher.model.Diretor;
 import br.com.cwi.reset.edersonrafaelnonnemacher.repository.DiretorRepository;
 import br.com.cwi.reset.edersonrafaelnonnemacher.request.DiretorRequest;
@@ -64,5 +60,27 @@ public class DiretorService {
             }
         }
         throw new ConsultaIdInvalidoException(TipoDominioException.DIRETOR.getSingular(), id);
+    }
+
+    // 2.4 - Atualizar diretor
+    public void atualizarDiretor(Integer id, DiretorRequest diretorRequest) throws CampoObrigatorioException, MesmoNomeException, ConsultaIdInvalidoException {
+
+        if (id == null) {
+            throw new CampoObrigatorioException("id.");
+        }
+
+        List<Diretor> listaDiretores = diretorRepository.findAll();
+
+        for (Diretor diretor : listaDiretores) {
+            if (diretor.getNome().toLowerCase(Locale.ROOT).equalsIgnoreCase(diretorRequest.getNome().toLowerCase(Locale.ROOT))) {
+                throw new MesmoNomeException(TipoDominioException.DIRETOR.getSingular());
+            }
+            if (diretor.getId().equals(id)) {
+                diretorRepository.save(new Diretor(diretorRequest.getNome(), diretorRequest.getDataNascimento(),
+                        diretorRequest.getAnoInicioAtividade()));
+            } else {
+                throw new ConsultaIdInvalidoException(TipoDominioException.DIRETOR.getSingular(), id);
+            }
+        }
     }
 }
