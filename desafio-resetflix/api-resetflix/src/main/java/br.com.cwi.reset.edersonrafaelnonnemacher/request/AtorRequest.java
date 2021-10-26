@@ -1,6 +1,8 @@
 package br.com.cwi.reset.edersonrafaelnonnemacher.request;
 
 import br.com.cwi.reset.edersonrafaelnonnemacher.model.StatusCarreira;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.validation.constraints.NotNull;
 
 import java.time.LocalDate;
@@ -10,6 +12,7 @@ public class AtorRequest {
     @NotNull(message = "Campo obrigatório não informado. Favor informar o campo nome.")
     private String nome;
     @NotNull(message = "Campo obrigatório não informado. Favor informar o campo dataNascimento.")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataNascimento;
     @NotNull(message = "Campo obrigatório não informado. Favor informar o campo statusCarreira.")
     private StatusCarreira statusCarreira;

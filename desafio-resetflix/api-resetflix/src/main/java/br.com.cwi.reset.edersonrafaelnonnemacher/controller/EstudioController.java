@@ -1,11 +1,7 @@
 package br.com.cwi.reset.edersonrafaelnonnemacher.controller;
 
-import br.com.cwi.reset.edersonrafaelnonnemacher.FakeDatabase;
-import br.com.cwi.reset.edersonrafaelnonnemacher.model.Ator;
 import br.com.cwi.reset.edersonrafaelnonnemacher.model.Estudio;
-import br.com.cwi.reset.edersonrafaelnonnemacher.request.AtorRequest;
 import br.com.cwi.reset.edersonrafaelnonnemacher.request.EstudioRequest;
-import br.com.cwi.reset.edersonrafaelnonnemacher.response.AtorEmAtividade;
 import br.com.cwi.reset.edersonrafaelnonnemacher.service.EstudioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

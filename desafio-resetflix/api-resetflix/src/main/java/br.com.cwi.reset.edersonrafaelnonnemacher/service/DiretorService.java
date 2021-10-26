@@ -1,6 +1,5 @@
 package br.com.cwi.reset.edersonrafaelnonnemacher.service;
 
-import br.com.cwi.reset.edersonrafaelnonnemacher.FakeDatabase;
 import br.com.cwi.reset.edersonrafaelnonnemacher.exception.CampoObrigatorioException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.exception.ConsultaIdInvalidoException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.exception.FiltroNomeNaoEncontradoException;
@@ -9,7 +8,6 @@ import br.com.cwi.reset.edersonrafaelnonnemacher.exception.TipoDominioException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.model.Diretor;
 import br.com.cwi.reset.edersonrafaelnonnemacher.repository.DiretorRepository;
 import br.com.cwi.reset.edersonrafaelnonnemacher.request.DiretorRequest;
-import br.com.cwi.reset.edersonrafaelnonnemacher.validator.ValidaDiretor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

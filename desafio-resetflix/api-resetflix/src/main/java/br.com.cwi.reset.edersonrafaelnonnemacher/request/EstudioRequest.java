@@ -1,6 +1,7 @@
 package br.com.cwi.reset.edersonrafaelnonnemacher.request;
 
 import br.com.cwi.reset.edersonrafaelnonnemacher.model.StatusAtividade;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -12,6 +13,7 @@ public class EstudioRequest {
     @NotNull(message = "Campo obrigatório não informado. Favor informar o campo descricao.")
     private String descricao;
     @NotNull(message = "Campo obrigatório não informado. Favor informar o campo dataCriacao.")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataCriacao;
     @NotNull(message = "Campo obrigatório não informado. Favor informar o campo statusAtividade.")
     private StatusAtividade statusAtividade;

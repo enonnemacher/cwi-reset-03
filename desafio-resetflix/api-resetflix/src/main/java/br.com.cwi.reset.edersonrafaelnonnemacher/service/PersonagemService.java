@@ -1,14 +1,11 @@
 package br.com.cwi.reset.edersonrafaelnonnemacher.service;
 
-import br.com.cwi.reset.edersonrafaelnonnemacher.FakeDatabase;
 import br.com.cwi.reset.edersonrafaelnonnemacher.exception.CampoObrigatorioException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.exception.ConsultaIdInvalidoException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.exception.TipoDominioException;
-import br.com.cwi.reset.edersonrafaelnonnemacher.model.Ator;
 import br.com.cwi.reset.edersonrafaelnonnemacher.model.PersonagemAtor;
 import br.com.cwi.reset.edersonrafaelnonnemacher.repository.PersonagemRepository;
 import br.com.cwi.reset.edersonrafaelnonnemacher.request.PersonagemRequest;
-import br.com.cwi.reset.edersonrafaelnonnemacher.validator.ValidaPersonagem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

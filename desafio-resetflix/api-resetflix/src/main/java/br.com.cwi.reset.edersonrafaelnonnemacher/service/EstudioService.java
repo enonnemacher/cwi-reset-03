@@ -8,7 +8,6 @@ import br.com.cwi.reset.edersonrafaelnonnemacher.exception.TipoDominioException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.model.Estudio;
 import br.com.cwi.reset.edersonrafaelnonnemacher.repository.EstudioRepository;
 import br.com.cwi.reset.edersonrafaelnonnemacher.request.EstudioRequest;
-import br.com.cwi.reset.edersonrafaelnonnemacher.validator.ValidaEstudio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,5 @@
 package br.com.cwi.reset.edersonrafaelnonnemacher.controller;
 
-import br.com.cwi.reset.edersonrafaelnonnemacher.FakeDatabase;
 import br.com.cwi.reset.edersonrafaelnonnemacher.model.Diretor;
 import br.com.cwi.reset.edersonrafaelnonnemacher.request.DiretorRequest;
 import br.com.cwi.reset.edersonrafaelnonnemacher.service.DiretorService;
