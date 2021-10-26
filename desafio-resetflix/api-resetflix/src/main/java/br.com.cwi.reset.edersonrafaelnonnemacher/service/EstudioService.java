@@ -1,63 +1,52 @@
 package br.com.cwi.reset.edersonrafaelnonnemacher.service;
 
-import br.com.cwi.reset.edersonrafaelnonnemacher.FakeDatabase;
 import br.com.cwi.reset.edersonrafaelnonnemacher.exception.CampoObrigatorioException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.exception.ConsultaIdInvalidoException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.exception.FiltroNomeNaoEncontradoException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.exception.ListaVaziaException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.exception.TipoDominioException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.model.Estudio;
+import br.com.cwi.reset.edersonrafaelnonnemacher.repository.EstudioRepository;
 import br.com.cwi.reset.edersonrafaelnonnemacher.request.EstudioRequest;
 import br.com.cwi.reset.edersonrafaelnonnemacher.validator.ValidaEstudio;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+@Service
 public class EstudioService {
 
-    private FakeDatabase fakeDatabase;
-
-    public static Integer id = 1;
-
-    public EstudioService(FakeDatabase fakeDatabase) {
-        this.fakeDatabase = fakeDatabase;
-    }
+    @Autowired
+    private EstudioRepository estudioRepository;
 
     // 3.1 Cadastrar estudio
     public void criarEstudio(EstudioRequest estudioRequest) throws Exception {
 
-        new ValidaEstudio().accept(estudioRequest.getNome(), estudioRequest.getDescricao(), estudioRequest.getDataCriacao(), estudioRequest.getStatusAtividade(), TipoDominioException.ESTUDIO);
-
-        this.fakeDatabase.persisteEstudio(new Estudio(id++, estudioRequest.getNome(), estudioRequest.getDescricao(),
-                estudioRequest.getDataCriacao(), estudioRequest.getStatusAtividade()));
+        estudioRepository.save(new Estudio(estudioRequest.getNome(), estudioRequest.getDescricao(),
+                estudioRequest.getDataCriacao(),estudioRequest.getStatusAtividade()));
     }
 
-    // 3.2 Listar estudio
+    // 3.2 Listar Estudio
     public List<Estudio> consultarEstudios(String filtroNome) throws Exception {
 
         List<Estudio> buscaEstudios = new ArrayList<>();
-        List<Estudio> listaEstudios = fakeDatabase.recuperaEstudios();
+        List<Estudio> listaEstudios = estudioRepository.findAll();
 
         if (listaEstudios.isEmpty()) {
             throw new ListaVaziaException(TipoDominioException.ESTUDIO.getSingular(), TipoDominioException.ESTUDIO.getPlural());
-        }
-
-        if (filtroNome != null) {
+        } else {
             for (Estudio estudio : listaEstudios) {
-                final boolean containsFilter = estudio.getNome().toLowerCase(Locale.ROOT).contains(filtroNome.toLowerCase(Locale.ROOT));
-                if (containsFilter) {
+                if (estudio.getNome().toLowerCase(Locale.ROOT).contains(filtroNome.toLowerCase(Locale.ROOT))) {
                     buscaEstudios.add(estudio);
                 }
+                if (buscaEstudios.isEmpty()) {
+                    throw new FiltroNomeNaoEncontradoException("Estudio", filtroNome);
+                }
             }
-        } else {
-            return buscaEstudios;
         }
-
-        if (buscaEstudios.isEmpty()) {
-            throw new FiltroNomeNaoEncontradoException("Estudio", filtroNome);
-        }
-
         return buscaEstudios;
     }
 
@@ -68,7 +57,7 @@ public class EstudioService {
             throw new CampoObrigatorioException("id.");
         }
 
-        List<Estudio> listaEstudios = fakeDatabase.recuperaEstudios();
+        List<Estudio> listaEstudios = estudioRepository.findAll();
 
         for (Estudio estudio : listaEstudios) {
             if (estudio.getId() == id) {

@@ -6,23 +6,31 @@ import br.com.cwi.reset.edersonrafaelnonnemacher.exception.ConsultaIdInvalidoExc
 import br.com.cwi.reset.edersonrafaelnonnemacher.exception.TipoDominioException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.model.Ator;
 import br.com.cwi.reset.edersonrafaelnonnemacher.model.PersonagemAtor;
+import br.com.cwi.reset.edersonrafaelnonnemacher.repository.PersonagemRepository;
 import br.com.cwi.reset.edersonrafaelnonnemacher.request.PersonagemRequest;
 import br.com.cwi.reset.edersonrafaelnonnemacher.validator.ValidaPersonagem;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class PersonagemService {
 
-    private FakeDatabase fakeDatabase;
-    public static Integer id = 1;
-    private AtorService atorService;
+    @Autowired
+    private PersonagemRepository personagemRepository;
 
-    public PersonagemService(FakeDatabase fakeDatabase) {
-        this.fakeDatabase = fakeDatabase;
-        this.atorService = new AtorService();
-    }
+//    private FakeDatabase fakeDatabase;
+//    public static Integer id = 1;
+//    private AtorService atorService;
+//
+//    public PersonagemService(FakeDatabase fakeDatabase) {
+//        this.fakeDatabase = fakeDatabase;
+//        //this.atorService = new AtorService();
+//    }
 
+    /*
     // 1.1 - Cadastrar personagem
     public List<PersonagemAtor> criarPersonagem(List<PersonagemRequest> personagemRequest) throws Exception {
 
@@ -46,7 +54,7 @@ public class PersonagemService {
         }
 
         return personagensAtor;
-    }
+    }*/
 
     // 1.2 - Consultar personagem pelo id
     public PersonagemAtor consultarPersonagem(Integer id) throws Exception {
@@ -55,7 +63,7 @@ public class PersonagemService {
             throw new CampoObrigatorioException("id.");
         }
 
-        List<PersonagemAtor> listaPersonagens = fakeDatabase.recuperaPersonagens();
+        List<PersonagemAtor> listaPersonagens = personagemRepository.findAll();
 
         for (PersonagemAtor personagemAtor : listaPersonagens) {
             if (personagemAtor.getId() == id) {

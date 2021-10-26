@@ -1,5 +1,6 @@
 package br.com.cwi.reset.edersonrafaelnonnemacher.service;
 
+import br.com.cwi.reset.edersonrafaelnonnemacher.FakeDatabase;
 import br.com.cwi.reset.edersonrafaelnonnemacher.exception.CampoObrigatorioException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.exception.ConsultaIdInvalidoException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.exception.FiltroNomeNaoEncontradoException;
@@ -20,20 +21,12 @@ import java.util.*;
 public class AtorService {
 
     @Autowired
-    private AtorRepository repository;
-
-    public static Integer id = 1;
-
-    /*public AtorService(FakeDatabase fakeDatabase) {
-        this.fakeDatabase = fakeDatabase;
-    }*/
+    private AtorRepository atorRepository;
 
     // 1.1 Cadastrar ator
-    public void criarAtor(AtorRequest atorRequest) throws Exception {
+    public void criarAtor(AtorRequest atorRequest) {
 
-        new ValidaAtor().accept(atorRequest.getNome(), atorRequest.getDataNascimento(), atorRequest.getAnoInicioAtividade(), atorRequest.getStatusCarreira(), TipoDominioException.ATOR);
-
-        this.fakeDatabase.persisteAtor(new Ator(id++, atorRequest.getNome(), atorRequest.getDataNascimento(),
+        atorRepository.save(new Ator(atorRequest.getNome(), atorRequest.getDataNascimento(),
                 atorRequest.getStatusCarreira(), atorRequest.getAnoInicioAtividade()));
     }
 
@@ -41,7 +34,7 @@ public class AtorService {
     public List<AtorEmAtividade> listarAtoresEmAtividade(String filtroNome) throws Exception {
 
         List<AtorEmAtividade> buscaAtores = new ArrayList<>();
-        List<Ator> listaAtores = fakeDatabase.recuperaAtores();
+        List<Ator> listaAtores = atorRepository.findAll();
 
         if (listaAtores.isEmpty()) {
             throw new ListaVaziaException(TipoDominioException.ATOR.getSingular(), TipoDominioException.ATOR.getPlural());
@@ -70,14 +63,14 @@ public class AtorService {
         return buscaAtores;
     }
 
-    // 1.3 - Consultar ator id
+    // 1.3 - Consultar ator id - atorRepository
     public Ator consultarAtor(Integer id) throws Exception {
 
         if (id == null) {
             throw new CampoObrigatorioException("id.");
         }
 
-        List<Ator> listaAtores = fakeDatabase.recuperaAtores();
+        List<Ator> listaAtores = atorRepository.findAll();
 
         for (Ator ator : listaAtores) {
             if (ator.getId() == id) {
@@ -88,9 +81,9 @@ public class AtorService {
         throw new ConsultaIdInvalidoException(TipoDominioException.ATOR.getSingular(), id);
     }
 
-    // 1.4 - listar todos os atores
-    public List consultarAtores() throws Exception {
-        List<Ator> listaAtores = fakeDatabase.recuperaAtores();
+    // 1.4 - listar todos os atores - atorRepository
+    public List consultarAtores() throws ListaVaziaException {
+        List<Ator> listaAtores = atorRepository.findAll();
         if (listaAtores.isEmpty()) {
             throw new ListaVaziaException(TipoDominioException.ATOR.getSingular(), TipoDominioException.ATOR.getPlural());
         } else {

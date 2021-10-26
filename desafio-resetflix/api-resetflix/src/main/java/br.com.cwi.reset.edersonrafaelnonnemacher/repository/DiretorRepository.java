@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface DiretorRepository extends CrudRepository<Diretor, Integer> {
 
-    Diretor findByNome(String nome);
+    List<Diretor> findByNome(String nome);
+
+    Diretor save(Diretor diretor);
 
     List<Diretor> findAll();
 }

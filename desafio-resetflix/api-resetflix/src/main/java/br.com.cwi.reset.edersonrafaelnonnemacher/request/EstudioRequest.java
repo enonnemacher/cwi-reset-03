@@ -2,13 +2,18 @@ package br.com.cwi.reset.edersonrafaelnonnemacher.request;
 
 import br.com.cwi.reset.edersonrafaelnonnemacher.model.StatusAtividade;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public class EstudioRequest {
 
+    @NotNull(message = "Campo obrigatório não informado. Favor informar o campo nome.")
     private String nome;
+    @NotNull(message = "Campo obrigatório não informado. Favor informar o campo descricao.")
     private String descricao;
+    @NotNull(message = "Campo obrigatório não informado. Favor informar o campo dataCriacao.")
     private LocalDate dataCriacao;
+    @NotNull(message = "Campo obrigatório não informado. Favor informar o campo statusAtividade.")
     private StatusAtividade statusAtividade;
 
     public EstudioRequest(String nome, String descricao, LocalDate dataCriacao, StatusAtividade statusAtividade) {

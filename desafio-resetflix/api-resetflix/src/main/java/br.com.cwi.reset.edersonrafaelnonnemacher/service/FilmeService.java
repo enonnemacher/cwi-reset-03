@@ -6,14 +6,21 @@ import br.com.cwi.reset.edersonrafaelnonnemacher.exception.ListaVaziaException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.exception.TipoDominioException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.model.Filme;
 import br.com.cwi.reset.edersonrafaelnonnemacher.model.PersonagemAtor;
+import br.com.cwi.reset.edersonrafaelnonnemacher.repository.FilmeRepository;
 import br.com.cwi.reset.edersonrafaelnonnemacher.request.FilmeRequest;
 import br.com.cwi.reset.edersonrafaelnonnemacher.request.PersonagemRequest;
 import br.com.cwi.reset.edersonrafaelnonnemacher.validator.ValidaFilme;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class FilmeService {
+
+    @Autowired
+    private FilmeRepository filmeRepository;
 
     private FakeDatabase fakeDatabase;
     private DiretorService diretorService;
@@ -21,13 +28,14 @@ public class FilmeService {
     private EstudioService estudioService;
     public static Integer id = 1;
 
-    public FilmeService(FakeDatabase fakeDatabase) {
-        this.fakeDatabase = fakeDatabase;
-        this.diretorService = new DiretorService(FakeDatabase.getInstance());
-        this.personagemService = new PersonagemService(FakeDatabase.getInstance());
-        this.estudioService = new EstudioService(FakeDatabase.getInstance());
-    }
+//    public FilmeService(FakeDatabase fakeDatabase) {
+//        this.fakeDatabase = fakeDatabase;
+//        this.diretorService = new DiretorService(FakeDatabase.getInstance());
+//        this.personagemService = new PersonagemService(FakeDatabase.getInstance());
+//        this.estudioService = new EstudioService(FakeDatabase.getInstance());
+//    }
 
+    /*
     // 4.1 Criar filme
     public void criarFilme(FilmeRequest filmeRequest) throws Exception {
 
@@ -51,7 +59,7 @@ public class FilmeService {
                 estudioService.consultarEstudio(filmeRequest.getIdEstudio()),
                 personagens,
                 filmeRequest.getResumo()));
-    }
+    }*/
 
     // 4.2 - Consultar filmes
     public List<Filme> consultarFilmes(String nomeFilme, String nomeDiretor, String nomePersonagem, String nomeAtor) throws Exception {

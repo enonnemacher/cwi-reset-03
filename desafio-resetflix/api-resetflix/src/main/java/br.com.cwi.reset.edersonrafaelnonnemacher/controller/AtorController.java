@@ -17,10 +17,6 @@ public class AtorController {
     @Autowired
     private AtorService atorService;
 
-    /*public AtorController() {
-        this.atorService = new AtorService(FakeDatabase.getInstance());
-    }*/
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void criarAtor(@RequestBody AtorRequest atorRequest) throws Exception {

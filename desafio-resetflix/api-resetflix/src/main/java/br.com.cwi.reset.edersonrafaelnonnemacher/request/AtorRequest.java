@@ -1,18 +1,19 @@
 package br.com.cwi.reset.edersonrafaelnonnemacher.request;
 
-/* AtorRequest é a classe que você vai usar como entrada pra criar um ator. Percebeu que "Ator" tem um atributo a mais que "AtorRequest"?
-Há situações nas quais quem está usando o programa não vai inserir manualmente todas as características que aquele objeto realmente tem.
-Neste caso, por exemplo, um ID pode ser atribuído automaticamente em vez de ser um campo pro qual você tem que definir um valor ao criar um ator. */
-
 import br.com.cwi.reset.edersonrafaelnonnemacher.model.StatusCarreira;
+import javax.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
 public class AtorRequest {
 
+    @NotNull(message = "Campo obrigatório não informado. Favor informar o campo nome.")
     private String nome;
+    @NotNull(message = "Campo obrigatório não informado. Favor informar o campo dataNascimento.")
     private LocalDate dataNascimento;
+    @NotNull(message = "Campo obrigatório não informado. Favor informar o campo statusCarreira.")
     private StatusCarreira statusCarreira;
+    @NotNull(message = "Campo obrigatório não informado. Favor informar o campo anoInicioAtividade.")
     private Integer anoInicioAtividade;
 
     public AtorRequest(String nome, LocalDate dataNascimento, StatusCarreira statusCarreira, Integer anoInicioAtividade) {
