@@ -20,17 +20,8 @@ public class PersonagemService {
 
     @Autowired
     private PersonagemRepository personagemRepository;
+    private AtorService atorService;
 
-//    private FakeDatabase fakeDatabase;
-//    public static Integer id = 1;
-//    private AtorService atorService;
-//
-//    public PersonagemService(FakeDatabase fakeDatabase) {
-//        this.fakeDatabase = fakeDatabase;
-//        //this.atorService = new AtorService();
-//    }
-
-    /*
     // 1.1 - Cadastrar personagem
     public List<PersonagemAtor> criarPersonagem(List<PersonagemRequest> personagemRequest) throws Exception {
 
@@ -38,23 +29,27 @@ public class PersonagemService {
 
         for (PersonagemRequest personagemRequest1 : personagemRequest) {
 
-            new ValidaPersonagem().accept(personagemRequest1.getIdAtor(),
-                    personagemRequest1.getNomePersonagem(),
-                    personagemRequest1.getDescricaoPersonagem(),
-                    personagemRequest1.getTipoAtuacao());
+//            new ValidaPersonagem().accept(personagemRequest1.getIdAtor(),
+//                    personagemRequest1.getNomePersonagem(),
+//                    personagemRequest1.getDescricaoPersonagem(),
+//                    personagemRequest1.getTipoAtuacao());
+//
+//            PersonagemAtor personagemAtor = new PersonagemAtor(id++,
+//                    atorService.consultarAtor(id),
+//                    personagemRequest1.getNomePersonagem(),
+//                    personagemRequest1.getDescricaoPersonagem(),
+//                    personagemRequest1.getTipoAtuacao());
+//
+//            this.fakeDatabase.persistePersonagem(personagemAtor);
+//            personagensAtor.add(personagemAtor);
 
-            PersonagemAtor personagemAtor = new PersonagemAtor(id++,
-                    atorService.consultarAtor(id),
-                    personagemRequest1.getNomePersonagem(),
-                    personagemRequest1.getDescricaoPersonagem(),
-                    personagemRequest1.getTipoAtuacao());
-
-            this.fakeDatabase.persistePersonagem(personagemAtor);
-            personagensAtor.add(personagemAtor);
+            personagemRepository.save(new PersonagemAtor(atorService.consultarAtor(personagemRequest1.getIdAtor()),
+                    personagemRequest1.getNomePersonagem(), personagemRequest1.getDescricaoPersonagem(),
+                    personagemRequest1.getTipoAtuacao()));
         }
 
         return personagensAtor;
-    }*/
+    }
 
     // 1.2 - Consultar personagem pelo id
     public PersonagemAtor consultarPersonagem(Integer id) throws Exception {

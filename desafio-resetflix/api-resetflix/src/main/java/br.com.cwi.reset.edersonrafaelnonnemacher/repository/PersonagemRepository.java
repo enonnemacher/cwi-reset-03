@@ -9,6 +9,8 @@ public interface PersonagemRepository extends CrudRepository<PersonagemAtor, Int
 
     PersonagemAtor findByNome(String nome);
 
+    PersonagemAtor save(PersonagemAtor personagemAtor);
+
     List<PersonagemAtor> findAll();
 }
 
