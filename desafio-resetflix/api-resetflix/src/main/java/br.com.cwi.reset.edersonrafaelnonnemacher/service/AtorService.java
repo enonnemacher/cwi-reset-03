@@ -4,6 +4,7 @@ import br.com.cwi.reset.edersonrafaelnonnemacher.exception.CampoObrigatorioExcep
 import br.com.cwi.reset.edersonrafaelnonnemacher.exception.ConsultaIdInvalidoException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.exception.FiltroNomeNaoEncontradoException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.exception.ListaVaziaException;
+import br.com.cwi.reset.edersonrafaelnonnemacher.exception.MesmoNomeException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.exception.TipoDominioException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.model.Ator;
 import br.com.cwi.reset.edersonrafaelnonnemacher.model.StatusCarreira;
@@ -86,6 +87,46 @@ public class AtorService {
             throw new ListaVaziaException(TipoDominioException.ATOR.getSingular(), TipoDominioException.ATOR.getPlural());
         } else {
             return listaAtores;
+        }
+    }
+
+    // 1.5 - atualizar ator
+    public void atualizarAtor(Integer id, AtorRequest atorRequest) throws CampoObrigatorioException, ConsultaIdInvalidoException, MesmoNomeException {
+
+        if (id == null) {
+            throw new CampoObrigatorioException("id.");
+        }
+
+        List<Ator> listaAtores = atorRepository.findAll();
+
+        for (Ator ator : listaAtores) {
+            if (ator.getNome().toLowerCase(Locale.ROOT).equalsIgnoreCase(atorRequest.getNome().toLowerCase(Locale.ROOT))){
+                throw new MesmoNomeException(TipoDominioException.ATOR.getSingular());
+            }
+            if (ator.getId().equals(id)) {
+                atorRepository.save(new Ator(atorRequest.getNome(), atorRequest.getDataNascimento(),
+                        atorRequest.getStatusCarreira(), atorRequest.getAnoInicioAtividade()));
+            } else {
+                throw new ConsultaIdInvalidoException(TipoDominioException.ATOR.getSingular(), id);
+            }
+        }
+    }
+
+    // 1.6 - remover ator
+    public void removerAtor(Integer id) throws CampoObrigatorioException, ConsultaIdInvalidoException {
+
+        if (id == null) {
+            throw new CampoObrigatorioException("id.");
+        }
+
+        List<Ator> listaAtores = atorRepository.findAll();
+
+        for (Ator ator : listaAtores) {
+            if (ator.getId().equals(id)) {
+                atorRepository.delete(ator);
+            } else {
+                throw new ConsultaIdInvalidoException(TipoDominioException.ATOR.getSingular(), id);
+            }
         }
     }
 }

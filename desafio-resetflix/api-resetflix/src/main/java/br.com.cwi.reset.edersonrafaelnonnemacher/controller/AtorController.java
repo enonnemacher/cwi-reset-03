@@ -39,4 +39,15 @@ public class AtorController {
     public List<Ator> consultarAtores() throws Exception {
         return atorService.consultarAtores();
     }
+
+    @Valid
+    @PutMapping("/{id}")
+    public void atualizarAtor(@PathVariable Integer id, @RequestBody AtorRequest atorRequest) throws Exception {
+        atorService.atualizarAtor(id, atorRequest);
+    }
+
+    @GetMapping("/{id}")
+    public void removerAtor(@PathVariable Integer id) throws Exception {
+        atorService.removerAtor(id);
+    }
 }
