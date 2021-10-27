@@ -1,5 +1,6 @@
 package br.com.cwi.reset.edersonrafaelnonnemacher.controller;
 
+import br.com.cwi.reset.edersonrafaelnonnemacher.exception.FilmeNaoEncontradoException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.model.Filme;
 import br.com.cwi.reset.edersonrafaelnonnemacher.request.FilmeRequest;
 import br.com.cwi.reset.edersonrafaelnonnemacher.service.FilmeService;
@@ -27,8 +28,13 @@ public class FilmeController {
 
     @GetMapping
     public List<Filme> consultarFilmes(@RequestParam String nomeFilme, @RequestParam String nomeDiretor,
-                                       @RequestParam String nomePersonagem, @RequestParam String nomeAtor) throws Exception {
+                                       @RequestParam String nomePersonagem, @RequestParam String nomeAtor) throws Exception, FilmeNaoEncontradoException {
 
         return this.filmeService.consultarFilmes(nomeFilme, nomeDiretor, nomePersonagem, nomeAtor);
+    }
+
+    @DeleteMapping("/{id}")
+    public void removerFilme(@PathVariable Integer id) throws Exception {
+        filmeService.removerFilme(id);
     }
 }

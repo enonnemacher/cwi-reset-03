@@ -1,8 +1,10 @@
 package br.com.cwi.reset.edersonrafaelnonnemacher.service;
 
-//import br.com.cwi.reset.edersonrafaelnonnemacher.exception.FilmeNaoEncontradoException;
-//import br.com.cwi.reset.edersonrafaelnonnemacher.exception.ListaVaziaException;
-//import br.com.cwi.reset.edersonrafaelnonnemacher.exception.TipoDominioException;
+import br.com.cwi.reset.edersonrafaelnonnemacher.exception.CampoObrigatorioException;
+import br.com.cwi.reset.edersonrafaelnonnemacher.exception.ConsultaIdInvalidoException;
+import br.com.cwi.reset.edersonrafaelnonnemacher.exception.FilmeNaoEncontradoException;
+import br.com.cwi.reset.edersonrafaelnonnemacher.exception.ListaVaziaException;
+import br.com.cwi.reset.edersonrafaelnonnemacher.exception.TipoDominioException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.model.Filme;
 import br.com.cwi.reset.edersonrafaelnonnemacher.model.PersonagemAtor;
 import br.com.cwi.reset.edersonrafaelnonnemacher.repository.FilmeRepository;
@@ -35,13 +37,13 @@ public class FilmeService {
     }
 
     // 4.2 - Consultar filmes
-    public List<Filme> consultarFilmes(String nomeFilme, String nomeDiretor, String nomePersonagem, String nomeAtor) throws Exception {
+    public List<Filme> consultarFilmes(String nomeFilme, String nomeDiretor, String nomePersonagem, String nomeAtor) throws Exception, FilmeNaoEncontradoException {
 
         List<Filme> listaDosFilmes = filmeRepository.findAll();
         List<Filme> retornoFiltroFilme = new ArrayList<>();
 
         if (listaDosFilmes.isEmpty()) {
-            //throw new ListaVaziaException(TipoDominioException.FILME.getSingular(), TipoDominioException.FILME.getPlural());
+            throw new ListaVaziaException(TipoDominioException.FILME.getSingular(), TipoDominioException.FILME.getPlural());
         }
 
         if (nomeFilme.isEmpty() && nomeDiretor.isEmpty() && nomePersonagem.isEmpty() && nomeAtor.isEmpty()) {
@@ -66,9 +68,28 @@ public class FilmeService {
         }
 
         if (retornoFiltroFilme.isEmpty()) {
-            //throw new FilmeNaoEncontradoException(nomeFilme, nomeDiretor, nomePersonagem, nomeAtor);
+            throw new FilmeNaoEncontradoException(nomeFilme, nomeDiretor, nomePersonagem, nomeAtor);
         }
 
         return retornoFiltroFilme;
+    }
+
+    // 4.3 - Remover Filmes
+    public void removerFilme(Integer id) throws CampoObrigatorioException, ConsultaIdInvalidoException {
+
+        if (id == null) {
+            throw new CampoObrigatorioException("id.");
+        }
+
+        List<Filme> listaFilmes = filmeRepository.findAll();
+
+        for (Filme filme : listaFilmes) {
+            if (filme.getId().equals(id)) {
+                filmeRepository.delete(filme);
+                personagemService.removerPersonagens(filme.getPersonagens());
+            } else {
+                throw new ConsultaIdInvalidoException(TipoDominioException.FILME.getSingular(), id);
+            }
+        }
     }
 }
