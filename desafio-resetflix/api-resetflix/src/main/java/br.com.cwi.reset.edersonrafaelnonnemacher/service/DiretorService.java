@@ -76,7 +76,7 @@ public class DiretorService {
     }
 
     // 2.4 - Atualizar diretor
-    public void atualizarDiretor(Integer id, DiretorRequest diretorRequest) throws CampoObrigatorioException, MesmoNomeException, ConsultaIdInvalidoException {
+    public void atualizarDiretor(Integer id, DiretorRequest diretorRequest) throws Exception {
 
         if (id == null) {
             throw new CampoObrigatorioException("id.");
@@ -89,6 +89,10 @@ public class DiretorService {
                 throw new MesmoNomeException(TipoDominioException.DIRETOR.getSingular(), diretor.getNome());
             }
             if (diretor.getId().equals(id)) {
+
+                new ValidaDiretor().accept(diretorRequest.getNome(), diretorRequest.getDataNascimento(),
+                        diretorRequest.getAnoInicioAtividade(), TipoDominioException.DIRETOR);
+
                 diretorRepository.save(new Diretor(diretorRequest.getNome(), diretorRequest.getDataNascimento(),
                         diretorRequest.getAnoInicioAtividade()));
             } else {

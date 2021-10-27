@@ -99,7 +99,7 @@ public class AtorService {
     }
 
     // 1.5 - atualizar ator
-    public void atualizarAtor(Integer id, AtorRequest atorRequest) throws CampoObrigatorioException, ConsultaIdInvalidoException, MesmoNomeException {
+    public void atualizarAtor(Integer id, AtorRequest atorRequest) throws Exception {
 
         if (id == null) {
             throw new CampoObrigatorioException("id.");
@@ -112,6 +112,10 @@ public class AtorService {
                 throw new MesmoNomeException(TipoDominioException.ATOR.getSingular(), ator.getNome());
             }
             if (ator.getId().equals(id)) {
+
+                new ValidaAtor().accept(atorRequest.getNome(), atorRequest.getDataNascimento(),
+                        atorRequest.getAnoInicioAtividade(), TipoDominioException.ATOR);
+
                 atorRepository.save(new Ator(atorRequest.getNome(), atorRequest.getDataNascimento(),
                         atorRequest.getStatusCarreira(), atorRequest.getAnoInicioAtividade()));
             } else {
