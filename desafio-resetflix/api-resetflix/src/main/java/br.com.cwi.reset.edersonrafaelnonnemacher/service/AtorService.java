@@ -1,5 +1,6 @@
 package br.com.cwi.reset.edersonrafaelnonnemacher.service;
 
+import br.com.cwi.reset.edersonrafaelnonnemacher.exception.AtorVinculadoPersonagemException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.exception.CampoObrigatorioException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.exception.ConsultaIdInvalidoException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.exception.FiltroNomeNaoEncontradoException;
@@ -104,7 +105,7 @@ public class AtorService {
 
         for (Ator ator : listaAtores) {
             if (ator.getNome().toLowerCase(Locale.ROOT).equalsIgnoreCase(atorRequest.getNome().toLowerCase(Locale.ROOT))){
-                throw new MesmoNomeException(TipoDominioException.ATOR.getSingular());
+                throw new MesmoNomeException(TipoDominioException.ATOR.getSingular(), ator.getNome());
             }
             if (ator.getId().equals(id)) {
                 atorRepository.save(new Ator(atorRequest.getNome(), atorRequest.getDataNascimento(),
@@ -116,7 +117,7 @@ public class AtorService {
     }
 
     // 1.6 - remover ator
-    public void removerAtor(Integer id) throws CampoObrigatorioException, ConsultaIdInvalidoException {
+    public void removerAtor(Integer id) throws CampoObrigatorioException, ConsultaIdInvalidoException, AtorVinculadoPersonagemException {
 
         if (id == null) {
             throw new CampoObrigatorioException("id.");
@@ -124,6 +125,12 @@ public class AtorService {
 
         List<Ator> listaAtores = atorRepository.findAll();
         List<PersonagemAtor> listaPersonagens = personagemRepository.findAll();
+
+        for(PersonagemAtor personagemAtor : listaPersonagens){
+            if(personagemAtor.getAtor().getId().equals(id)){
+                throw new AtorVinculadoPersonagemException(TipoDominioException.ATOR.getSingular());
+            }
+        }
 
         for (Ator ator : listaAtores) {
             if (ator.getId().equals(id)) {

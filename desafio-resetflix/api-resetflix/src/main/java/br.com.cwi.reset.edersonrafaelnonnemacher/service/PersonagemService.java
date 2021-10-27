@@ -26,20 +26,6 @@ public class PersonagemService {
 
         for (PersonagemRequest personagemRequest1 : personagemRequest) {
 
-//            new ValidaPersonagem().accept(personagemRequest1.getIdAtor(),
-//                    personagemRequest1.getNomePersonagem(),
-//                    personagemRequest1.getDescricaoPersonagem(),
-//                    personagemRequest1.getTipoAtuacao());
-//
-//            PersonagemAtor personagemAtor = new PersonagemAtor(id++,
-//                    atorService.consultarAtor(id),
-//                    personagemRequest1.getNomePersonagem(),
-//                    personagemRequest1.getDescricaoPersonagem(),
-//                    personagemRequest1.getTipoAtuacao());
-//
-//            this.fakeDatabase.persistePersonagem(personagemAtor);
-//            personagensAtor.add(personagemAtor);
-
             personagemRepository.save(new PersonagemAtor(atorService.consultarAtor(personagemRequest1.getIdAtor()),
                     personagemRequest1.getNomePersonagem(), personagemRequest1.getDescricaoPersonagem(),
                     personagemRequest1.getTipoAtuacao()));
@@ -64,5 +50,12 @@ public class PersonagemService {
         }
 
         throw new ConsultaIdInvalidoException(TipoDominioException.PERSONAGEM.getSingular(), id);
+    }
+
+    // 1.3 - Remover personagem do ator
+    public void removerPersonagens(List<PersonagemAtor> personagemAtor){
+        for(PersonagemAtor personagem : personagemAtor){
+            personagemRepository.delete(personagem);
+        }
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -16,6 +17,7 @@ public class DiretorController {
     @Autowired
     private DiretorService diretorService;
 
+    @Valid
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void cadastrarDiretor(@RequestBody DiretorRequest diretorRequest) throws Exception {
@@ -27,8 +29,19 @@ public class DiretorController {
         return diretorService.listarDiretores(filtroNome);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(path = "/{id}")
     public Diretor consultarDiretor(@PathVariable Integer id) throws Exception {
         return diretorService.consultarDiretor(id);
+    }
+
+    @Valid
+    @PutMapping("/{id}")
+    public void atualizarDiretor(@PathVariable Integer id, @RequestBody DiretorRequest diretorRequest) throws Exception {
+        diretorService.atualizarDiretor(id, diretorRequest);
+    }
+
+    @DeleteMapping("/{id}")
+    public void removerDiretores(@PathVariable Integer id) throws Exception {
+        diretorService.removerDiretores(id);
     }
 }

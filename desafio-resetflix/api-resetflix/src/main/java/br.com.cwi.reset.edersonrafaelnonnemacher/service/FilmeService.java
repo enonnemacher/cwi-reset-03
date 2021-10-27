@@ -1,8 +1,8 @@
 package br.com.cwi.reset.edersonrafaelnonnemacher.service;
 
-import br.com.cwi.reset.edersonrafaelnonnemacher.exception.FilmeNaoEncontradoException;
-import br.com.cwi.reset.edersonrafaelnonnemacher.exception.ListaVaziaException;
-import br.com.cwi.reset.edersonrafaelnonnemacher.exception.TipoDominioException;
+//import br.com.cwi.reset.edersonrafaelnonnemacher.exception.FilmeNaoEncontradoException;
+//import br.com.cwi.reset.edersonrafaelnonnemacher.exception.ListaVaziaException;
+//import br.com.cwi.reset.edersonrafaelnonnemacher.exception.TipoDominioException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.model.Filme;
 import br.com.cwi.reset.edersonrafaelnonnemacher.model.PersonagemAtor;
 import br.com.cwi.reset.edersonrafaelnonnemacher.repository.FilmeRepository;
@@ -41,7 +41,7 @@ public class FilmeService {
         List<Filme> retornoFiltroFilme = new ArrayList<>();
 
         if (listaDosFilmes.isEmpty()) {
-            throw new ListaVaziaException(TipoDominioException.FILME.getSingular(), TipoDominioException.FILME.getPlural());
+            //throw new ListaVaziaException(TipoDominioException.FILME.getSingular(), TipoDominioException.FILME.getPlural());
         }
 
         if (nomeFilme.isEmpty() && nomeDiretor.isEmpty() && nomePersonagem.isEmpty() && nomeAtor.isEmpty()) {
@@ -66,7 +66,7 @@ public class FilmeService {
         }
 
         if (retornoFiltroFilme.isEmpty()) {
-            throw new FilmeNaoEncontradoException(nomeFilme, nomeDiretor, nomePersonagem, nomeAtor);
+            //throw new FilmeNaoEncontradoException(nomeFilme, nomeDiretor, nomePersonagem, nomeAtor);
         }
 
         return retornoFiltroFilme;

@@ -25,12 +25,12 @@ public class AtorController {
         atorService.criarAtor(atorRequest);
     }
 
-    @GetMapping("/em_atividade")
+    @GetMapping(path = "/em_atividade")
     public List<AtorEmAtividade> listarAtoresEmAtividade(@RequestParam String filtroNome) throws Exception {
         return atorService.listarAtoresEmAtividade(filtroNome);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(path = "/{id}")
     public Ator consultarAtor(@PathVariable Integer id) throws Exception {
         return atorService.consultarAtor(id);
     }
@@ -46,7 +46,7 @@ public class AtorController {
         atorService.atualizarAtor(id, atorRequest);
     }
 
-    @GetMapping("/{id}")
+    @DeleteMapping("/{id}")
     public void removerAtor(@PathVariable Integer id) throws Exception {
         atorService.removerAtor(id);
     }
