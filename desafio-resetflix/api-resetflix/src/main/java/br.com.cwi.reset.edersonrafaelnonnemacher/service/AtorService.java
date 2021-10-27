@@ -14,6 +14,7 @@ import br.com.cwi.reset.edersonrafaelnonnemacher.repository.AtorRepository;
 import br.com.cwi.reset.edersonrafaelnonnemacher.repository.PersonagemRepository;
 import br.com.cwi.reset.edersonrafaelnonnemacher.request.AtorRequest;
 import br.com.cwi.reset.edersonrafaelnonnemacher.response.AtorEmAtividade;
+import br.com.cwi.reset.edersonrafaelnonnemacher.validator.ValidaAtor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,10 @@ public class AtorService {
     private PersonagemRepository personagemRepository;
 
     // 1.1 Cadastrar ator
-    public void criarAtor(AtorRequest atorRequest) {
+    public void criarAtor(AtorRequest atorRequest) throws Exception {
+
+        new ValidaAtor().accept(atorRequest.getNome(), atorRequest.getDataNascimento(),
+                atorRequest.getAnoInicioAtividade(), TipoDominioException.ATOR);
 
         atorRepository.save(new Ator(atorRequest.getNome(), atorRequest.getDataNascimento(),
                 atorRequest.getStatusCarreira(), atorRequest.getAnoInicioAtividade()));
@@ -104,7 +108,7 @@ public class AtorService {
         List<Ator> listaAtores = atorRepository.findAll();
 
         for (Ator ator : listaAtores) {
-            if (ator.getNome().toLowerCase(Locale.ROOT).equalsIgnoreCase(atorRequest.getNome().toLowerCase(Locale.ROOT))){
+            if (ator.getNome().toLowerCase(Locale.ROOT).equalsIgnoreCase(atorRequest.getNome().toLowerCase(Locale.ROOT))) {
                 throw new MesmoNomeException(TipoDominioException.ATOR.getSingular(), ator.getNome());
             }
             if (ator.getId().equals(id)) {
@@ -126,8 +130,8 @@ public class AtorService {
         List<Ator> listaAtores = atorRepository.findAll();
         List<PersonagemAtor> listaPersonagens = personagemRepository.findAll();
 
-        for(PersonagemAtor personagemAtor : listaPersonagens){
-            if(personagemAtor.getAtor().getId().equals(id)){
+        for (PersonagemAtor personagemAtor : listaPersonagens) {
+            if (personagemAtor.getAtor().getId().equals(id)) {
                 throw new AtorVinculadoPersonagemException(TipoDominioException.ATOR.getSingular());
             }
         }

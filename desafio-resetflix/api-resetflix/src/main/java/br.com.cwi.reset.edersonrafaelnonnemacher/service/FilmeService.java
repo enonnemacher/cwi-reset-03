@@ -9,6 +9,7 @@ import br.com.cwi.reset.edersonrafaelnonnemacher.model.Filme;
 import br.com.cwi.reset.edersonrafaelnonnemacher.model.PersonagemAtor;
 import br.com.cwi.reset.edersonrafaelnonnemacher.repository.FilmeRepository;
 import br.com.cwi.reset.edersonrafaelnonnemacher.request.FilmeRequest;
+import br.com.cwi.reset.edersonrafaelnonnemacher.validator.ValidaFilme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,8 @@ public class FilmeService {
 
     // 4.1 Criar filme
     public void criarFilme(FilmeRequest filmeRequest) throws Exception {
+
+        new ValidaFilme().accept(filmeRequest.getGeneros(), filmeRequest.getPersonagens());
 
         List<PersonagemAtor> personagens = personagemService.criarPersonagem(filmeRequest.getPersonagens());
 

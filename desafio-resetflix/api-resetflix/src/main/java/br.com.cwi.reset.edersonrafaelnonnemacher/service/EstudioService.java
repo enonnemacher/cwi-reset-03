@@ -8,6 +8,7 @@ import br.com.cwi.reset.edersonrafaelnonnemacher.exception.TipoDominioException;
 import br.com.cwi.reset.edersonrafaelnonnemacher.model.Estudio;
 import br.com.cwi.reset.edersonrafaelnonnemacher.repository.EstudioRepository;
 import br.com.cwi.reset.edersonrafaelnonnemacher.request.EstudioRequest;
+import br.com.cwi.reset.edersonrafaelnonnemacher.validator.ValidaEstudio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +25,11 @@ public class EstudioService {
     // 3.1 Cadastrar estudio
     public void criarEstudio(EstudioRequest estudioRequest) throws Exception {
 
+        new ValidaEstudio().accept(estudioRequest.getNome(), estudioRequest.getDataCriacao(),
+                TipoDominioException.ESTUDIO);
+
         estudioRepository.save(new Estudio(estudioRequest.getNome(), estudioRequest.getDescricao(),
-                estudioRequest.getDataCriacao(),estudioRequest.getStatusAtividade()));
+                estudioRequest.getDataCriacao(), estudioRequest.getStatusAtividade()));
     }
 
     // 3.2 Listar Estudio

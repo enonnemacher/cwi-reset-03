@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class CampoRepetidoException extends Exception {
     public CampoRepetidoException(String campo) {
-        super(String.format("Não é permitido informar o mesmo %s mais de uma vz para o mesmo filme.", campo));
+        super(String.format("Não é permitido informar o mesmo %s mais de uma vez para o mesmo filme.", campo));
     }
 }

@@ -12,6 +12,7 @@ import br.com.cwi.reset.edersonrafaelnonnemacher.model.Filme;
 import br.com.cwi.reset.edersonrafaelnonnemacher.repository.DiretorRepository;
 import br.com.cwi.reset.edersonrafaelnonnemacher.repository.FilmeRepository;
 import br.com.cwi.reset.edersonrafaelnonnemacher.request.DiretorRequest;
+import br.com.cwi.reset.edersonrafaelnonnemacher.validator.ValidaDiretor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,9 @@ public class DiretorService {
 
     // 2.1 Cadastrar diretor - diretorRepository
     public void cadastrarDiretor(DiretorRequest diretorRequest) throws Exception {
+
+        new ValidaDiretor().accept(diretorRequest.getNome(), diretorRequest.getDataNascimento(),
+                diretorRequest.getAnoInicioAtividade(), TipoDominioException.DIRETOR);
 
         diretorRepository.save(new Diretor(diretorRequest.getNome(), diretorRequest.getDataNascimento(),
                 diretorRequest.getAnoInicioAtividade()));
