@@ -179,6 +179,7 @@ public class Exercicios1Test {
     }
 
     // 4.2 - Banana
+    @Test
     public void testInverteBanana() {
         // Arrange
         Exercicios1 service = new Exercicios1();
@@ -193,6 +194,7 @@ public class Exercicios1Test {
     }
 
     // 4.3 - Pessego
+    @Test
     public void testInvertePessego() {
         // Arrange
         Exercicios1 service = new Exercicios1();
@@ -207,6 +209,7 @@ public class Exercicios1Test {
     }
 
     // 4.4 - Morango
+    @Test
     public void testInverteMorango() {
         // Arrange
         Exercicios1 service = new Exercicios1();
