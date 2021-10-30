@@ -222,4 +222,19 @@ public class Exercicios1Test {
         // Assert
         assertEquals(expected, result);
     }
+
+    // Validar método que ordena lista
+    @Test
+    public void testOrdenarLista() {
+        // Arrange
+        Exercicios1 service = new Exercicios1();
+        List<Integer> numeros = Arrays.asList(2, 4, 5, 3, 1);
+        List<Integer> expected = Arrays.asList(1, 2, 3, 4, 5);
+
+        // Action
+        List<Integer> result = service.ordenarLista(numeros);
+
+        // Assert
+        assertEquals(expected, result);
+    }
 }
